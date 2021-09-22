@@ -1,2 +1,2 @@
-# ZeroSchool
-## Ceci n'est pas une école.
+# EggDao WebApp
+## Dedicated Twetch Client
