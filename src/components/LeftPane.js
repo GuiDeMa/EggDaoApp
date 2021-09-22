@@ -66,7 +66,16 @@ export default function LeftPane(props) {
               }}
               to="/"
             >
-              ZeroSchool
+              <div
+                style={{ fontWeight: 669, fontSize: "24px", cursor: "pointer" }}
+              >
+                <span role="img" aria-label="the egg way">
+                  (🥚,🐣)
+                </span>
+                <span style={{ fontSize: "18px", marginLeft: "3px" }}>
+                  EggDao
+                </span>
+              </div>
             </Link>
           </div>
           <div

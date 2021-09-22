@@ -139,7 +139,7 @@ export default function Composer(props) {
                   textDecoration: "none"
                 }}
               >
-                ZeroSchool
+                Twetch
                 <span style={{ color: "#085AF6", fontSize: "16px" }}>Pay</span>
               </div>
               <div style={{ flexGrow: 1 }} />
@@ -414,7 +414,7 @@ export default function Composer(props) {
       let outputScript = abi.args.toString("hex");
       outputScript = Buffer.from(outputScript).toString("hex");
       const paymentParameters = {
-        appAction: "ZeroSchool post",
+        appAction: "EggDao post",
         payments: payees.payees.map((p) => {
           return {
             destination: p.to,

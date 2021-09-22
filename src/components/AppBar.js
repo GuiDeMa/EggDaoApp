@@ -294,7 +294,13 @@ export default function AppBar(props) {
             }}
             to="/"
           >
-            ZeroSchool
+            <div
+              style={{ fontWeight: 669, fontSize: "24px", cursor: "pointer" }}
+            >
+              <span role="img" aria-label="the egg way">
+                (🥚,🐣)
+              </span>
+            </div>
           </Link>
         </div>
         <div style={{ float: "right" }}>

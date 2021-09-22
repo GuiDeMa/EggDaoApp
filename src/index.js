@@ -1,18 +1,22 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { CssBaseline } from "@material-ui/core";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
 import App from "./App";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
-      main: "#085AF6"
+      light: "#e7ab3e",
+      main: "#b17c01",
+      dark: "#7d5000"
     },
     secondary: {
-      main: "#E81212"
+      light: "#72ff51",
+      main: "#21e800",
+      dark: "#00b400"
     }
   }
 });

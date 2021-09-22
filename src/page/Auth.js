@@ -20,7 +20,7 @@ export default function Auth() {
   const TwetchLogin = (e) => {
     // config
     let redirectUrl = `https://${host}/auth/callback/twetch`;
-    let appName = "ZeroSchool";
+    let appName = "EggDao";
     e.preventDefault();
     window.location.href = `https://twetch.app/auth/authorize?appName=${appName}&redirectUrl=${redirectUrl}`;
   };
@@ -139,7 +139,10 @@ export default function Auth() {
             lineWeight: "36px"
           }}
         >
-          ZeroSchool
+          <span role="img" aria-label="the egg way">
+            (🥚,🐣)
+          </span>
+          <span style={{ fontSize: "18px", marginLeft: "3px" }}>EggDao</span>
         </p>
         <p
           style={{
@@ -150,9 +153,9 @@ export default function Auth() {
             lineHeight: "20px"
           }}
         >
-          Ceci n'est pas une école.
+          Operate onchain or don't, whatever
         </p>
-        {/* <div
+        <div
           style={{
             width: "100%",
             margin: "20px auto 0 auto",
@@ -178,8 +181,36 @@ export default function Auth() {
           >
             Log in with Twetch
           </Button>
-        </div> */}
+        </div>
         <div
+          style={{
+            width: "100%",
+            margin: "20px auto 0 auto",
+            display: "block",
+            maxWidth: "300px"
+          }}
+        >
+          <Button
+            style={{
+              width: "100%",
+              padding: "14px",
+              fontSize: "16px",
+              boxShadow: "none !important",
+              fontWeight: 600,
+              lineHeight: "24px",
+              borderRadius: "6px",
+              textTransform: "none",
+              textAlign: "center"
+            }}
+            variant="outlined"
+            color="primary"
+            href="https://twet.ch/inv/eggdao"
+            target="_blank"
+          >
+            But ser, I don't have a Twetch account
+          </Button>
+        </div>
+        {/* <div
           style={{
             width: "100%",
             margin: "20px auto 0 auto",
@@ -205,7 +236,7 @@ export default function Auth() {
           >
             Log in with MoneyButton
           </Button>
-        </div>
+        </div> */}
         <div
           style={{
             width: "100%",
