@@ -3,7 +3,6 @@ import { Switch, Route } from "react-router-dom";
 
 import { getABI } from "./api/TwetchActions";
 
-import HandCashCallBack from "./page/HandCashCallBack";
 import TwetchCallback from "./page/TwetchCallBack";
 import Auth from "./page/Auth";
 import Notifications from "./page/Notifications";
@@ -18,7 +17,6 @@ import Search from "./page/Search";
 import Detail from "./page/Detail";
 import Welcome from "./page/Welcome";
 import Settings from "./page/Settings";
-import "./styles.css";
 
 export default function App() {
   useEffect(() => {
@@ -33,10 +31,6 @@ export default function App() {
           exact
           path="/auth/callback/twetch"
           render={() => <TwetchCallback />}
-        />
-        <Route
-          path="/auth/callback/handcash"
-          render={() => <HandCashCallBack />}
         />
         <Route exact path="/welcome" component={Welcome} />
         <Route exact path="/notifications" component={Notifications} />
