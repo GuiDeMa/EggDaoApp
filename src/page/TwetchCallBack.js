@@ -68,17 +68,7 @@ export default function TwetchCallback() {
     }
   };
 
-  return loading ? (
-    <div
-      style={{
-        display: "flex",
-        marginTop: "16px",
-        justifyContent: "center"
-      }}
-    >
-      <CircularProgress />
-    </div>
-  ) : (
+  return (
     <div
       style={{
         backgroundColor: theme.palette.primary.light,
@@ -195,7 +185,7 @@ export default function TwetchCallback() {
                   variant="contained"
                   style={{ textTransform: "none" }}
                   fullWidth
-                  disabled={false}
+                  disabled={recoveryPhrase.length === 0}
                   onClick={handleSubmit}
                 >
                   <Typography variant="body1">
