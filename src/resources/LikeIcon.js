@@ -38,7 +38,7 @@ export default function LikeIcon(props) {
   useEffect(() => {
     const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
     twetch.wallet.restore(pKey);
-  });
+  }, [count, likedCalc]);
 
   const handleClick = (e) => {
     e.stopPropagation();
@@ -57,6 +57,15 @@ export default function LikeIcon(props) {
   const handleDrawerToggle = (e) => {
     e.stopPropagation();
     setOpen(!open);
+  };
+
+  const handle1Click = (e) => {
+    e.stopPropagation();
+    likePost(txId)
+      .then((res) => {
+        setOpen(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   const pay = (
@@ -166,9 +175,7 @@ export default function LikeIcon(props) {
                     }}
                     color="secondary"
                     variant="contained"
-                    onClick={() => {
-                      likePost(txId);
-                    }}
+                    onClick={handle1Click}
                   >
                     Like It!
                   </Button>
@@ -185,6 +192,9 @@ export default function LikeIcon(props) {
   );
 
   async function likePost(txid) {
+    setCount(parseInt(count) + 1);
+    setLikedCalc(parseInt(likedCalc) + 1);
+    return;
     twetch
       .publish("twetch/like@0.0.1", { postTransaction: txid })
       .then((res) => {

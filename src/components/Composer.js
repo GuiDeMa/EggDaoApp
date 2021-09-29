@@ -17,7 +17,6 @@ const Twetch = require("@twetch/sdk");
 
 export default function Composer(props) {
   const window = props.window;
-
   const location = useLocation();
   let hash = "";
   if (location.hash) {
@@ -25,12 +24,11 @@ export default function Composer(props) {
   } else if (props.hash) {
     hash = props.hash;
   }
-  console.log(hash);
   const history = useHistory();
   const container =
     window !== undefined ? () => window().document.body : undefined;
   const ticker = "$EGG";
-  const replyTx = props.replyTx;
+  const replyTx = location.pathname.split("/")[2];
   const [placeholder, setPlaceholder] = useState("What's the latest?");
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
