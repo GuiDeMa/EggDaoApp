@@ -17,6 +17,7 @@ import Search from "./page/Search";
 import Detail from "./page/Detail";
 import Welcome from "./page/Welcome";
 import Settings from "./page/Settings";
+import "./style.css";
 
 export default function App() {
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div style={{ top: 0, right: 0, bottom: 0, left: 0 }}>
       <Switch>
         <Route exact path="/auth" component={Auth} />
         <Route

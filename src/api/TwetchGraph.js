@@ -139,6 +139,18 @@ export function FetchPosts(filter, order, offset) {
     }
   }`);
 }
+export function FetchJobs(order, offset) {
+  return twquery(`{
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {bContent: {startsWith: "/job"}}) {
+      totalCount
+      edges {
+        node {
+          ...${PostFields}
+        }
+      }
+    }
+  }`);
+}
 
 export function FetchUserPosts(userId, order, offset) {
   return twquery(`{

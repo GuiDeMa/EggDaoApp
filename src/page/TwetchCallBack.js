@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Button,
-  CircularProgress,
-  OutlinedInput,
-  Typography,
-  useTheme
-} from "@material-ui/core";
+import { Button, OutlinedInput, Typography, useTheme } from "@material-ui/core";
 
 import { userData } from "../api/TwetchGraph";
 
@@ -14,8 +8,6 @@ const axios = require("axios");
 const Twetch = require("@twetch/sdk");
 
 export default function TwetchCallback() {
-  const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState();
   const [recoveryPhrase, setRecoveryPhrase] = useState("");
   const [error, setError] = useState(false);
   const [errorDesc, setErrorDesc] = useState("");
@@ -34,18 +26,15 @@ export default function TwetchCallback() {
   });
 
   useEffect(() => {
-    setLoading(true);
     axiosTwetchGraphQL
       .post("/graphql", {
         query: userData
       })
       .then((resp) => {
-        setUser(resp.data.data.me);
         localStorage.setItem("icon", resp.data.data.me.icon);
         localStorage.setItem("id", resp.data.data.me.id);
         localStorage.setItem("name", resp.data.data.me.name);
         localStorage.setItem("isOneClick", "false");
-        setLoading(false);
       });
   }, []);
 
