@@ -129,7 +129,46 @@ export function FetchNotifications(offset) {
 export function FetchPosts(filter, order, offset) {
   //console.log(filter);
   return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {bContent: {endsWith: "${filter}"}}) {
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {mapComment: {includes: "${filter}"}}) {
+      totalCount
+      edges {
+        node {
+          ...${PostFields}
+        }
+      }
+    }
+  }`);
+}
+export function FetchHome(ticker, order, offset) {
+  //console.log(filter);
+  return twquery(`{
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {mapComment: {includes: "${ticker}"}}) {
+      totalCount
+      edges {
+        node {
+          ...${PostFields}
+        }
+      }
+    }
+  }`);
+}
+export function FetchIdeas(filter, order, offset) {
+  //console.log(filter);
+  return twquery(`{
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {mapComment: {includes: "${filter}"}}) {
+      totalCount
+      edges {
+        node {
+          ...${PostFields}
+        }
+      }
+    }
+  }`);
+}
+export function FetchProjects(filter, order, offset) {
+  //console.log(filter);
+  return twquery(`{
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {mapComment: {includes: "${filter}"}}) {
       totalCount
       edges {
         node {

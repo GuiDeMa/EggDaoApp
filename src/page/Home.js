@@ -11,7 +11,7 @@ import {
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { FetchPosts } from "../api/TwetchGraph";
+import { FetchHome } from "../api/TwetchGraph";
 import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
@@ -32,7 +32,7 @@ const OrderToIndex = {
 };
 
 export default function Home(props) {
-  const filter = "$egg";
+  const ticker = "$EGG";
   //console.log(filter);
   const [orderBy, setOrderBy] = useState(indexToOrder[0]);
   //const [filter, setFilter] = useState(props.filter);
@@ -51,10 +51,10 @@ export default function Home(props) {
     fetchMore();
     setLoading(false);
     //getBoosts().then((res) => setBoosts(res));
-  }, [orderBy, filter]);
+  }, [orderBy]);
 
   const fetchMore = () => {
-    FetchPosts(filter, orderBy, offset).then((res) => {
+    FetchHome(ticker, orderBy, offset).then((res) => {
       //console.log(res);
       setTotalCount(res.allPosts.totalCount);
       //console.log("total:", totalCount);

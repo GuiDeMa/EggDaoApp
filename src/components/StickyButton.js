@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function StickyButton() {
+export default function StickyButton(props) {
+  const hash = props.hash;
   const classes = useStyles();
   return (
     <div className="">
@@ -30,7 +31,7 @@ export default function StickyButton() {
         aria-label="compose"
         disabled={!localStorage.getItem("tokenTwetchAuth")}
         component={Link}
-        to="/compose"
+        to={`/compose${hash}`}
       >
         <AddIcon />
       </Fab>

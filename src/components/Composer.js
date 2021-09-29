@@ -10,16 +10,26 @@ import {
   Typography
 } from "@material-ui/core";
 import { Alert } from "@mui/material";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { twquery } from "../api/TwetchGraph";
 
 const Twetch = require("@twetch/sdk");
 
 export default function Composer(props) {
   const window = props.window;
+
+  const location = useLocation();
+  let hash = "";
+  if (location.hash) {
+    hash = location.hash;
+  } else if (props.hash) {
+    hash = props.hash;
+  }
+  console.log(hash);
   const history = useHistory();
   const container =
     window !== undefined ? () => window().document.body : undefined;
+  const ticker = "$EGG";
   const replyTx = props.replyTx;
   const [placeholder, setPlaceholder] = useState("What's the latest?");
   const [content, setContent] = useState("");
@@ -34,7 +44,6 @@ export default function Composer(props) {
     const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
     twetch.wallet.restore(pKey);
     if (replyTx) {
-      console.log(replyTx);
       twquery(`{
         allPosts(
           condition: {transaction: "${replyTx}"}
@@ -97,7 +106,8 @@ export default function Composer(props) {
     e.stopPropagation();
     twetchPost(content, replyTx)
       .then((res) => {
-        //console.log(res);
+        //console.log(res)
+        setOpen(false);
         setContent("");
         history.push("/");
       })
@@ -297,8 +307,9 @@ export default function Composer(props) {
     const payload = {
       bContent: text,
       mapReply: replyTx,
-      mapComment: " $EGG"
+      mapComment: ticker + hash
     };
+
     twetch
       .publish("twetch/post@0.0.1", payload)
       .then((res) => {

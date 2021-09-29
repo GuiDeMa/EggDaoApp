@@ -11,7 +11,7 @@ import {
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { FetchPosts } from "../api/TwetchGraph";
+import { FetchProjects } from "../api/TwetchGraph";
 import StickyButton from "../components/StickyButton";
 import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
@@ -54,7 +54,7 @@ export default function Projects(props) {
   }, [orderBy, filter]);
 
   const fetchMore = () => {
-    FetchPosts(filter, orderBy, offset).then((res) => {
+    FetchProjects(filter, orderBy, offset).then((res) => {
       //console.log(res);
       setTotalCount(res.allPosts.totalCount);
       let data = res.allPosts.edges;
@@ -174,7 +174,7 @@ export default function Projects(props) {
               }}
             >
               <Hidden xsDown>
-                <Composer />
+                <Composer hash="#projects" />
                 <div
                   style={{
                     width: "100%",
@@ -244,7 +244,7 @@ export default function Projects(props) {
         }}
       >
         <Hidden smUp>
-          <StickyButton />
+          <StickyButton hash="#project" />
         </Hidden>
       </div>
     </div>

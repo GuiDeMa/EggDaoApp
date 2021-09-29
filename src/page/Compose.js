@@ -97,9 +97,7 @@ export default function Compose(props) {
             </Hidden>
           </div>
           {txId &&
-            postData.map((data) => (
-              <Post {...data} boostDiff={getDiff(txId)} key={txId} tx={txId} />
-            ))}
+            postData.map((data) => <Post {...data} key={txId} tx={txId} />)}
           <Composer />
         </div>
       </div>
