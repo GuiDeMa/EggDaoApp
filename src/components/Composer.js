@@ -29,10 +29,12 @@ export default function Composer(props) {
     window !== undefined ? () => window().document.body : undefined;
   const ticker = "$EGG";
   const replyTx = location.pathname.split("/")[2];
+  console.log(replyTx);
   const [placeholder, setPlaceholder] = useState("What's the latest?");
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [replyCount, setReplyCount] = useState(0);
   const [error, setError] = useState(false);
   const twetch = new Twetch({
     clientIdentifier: "10d3b9a3-3733-4769-9f97-d255ee37113b"
@@ -75,7 +77,15 @@ export default function Composer(props) {
         .then((res) => {
           //console.log(res);
           setContent("");
-          history.push("/");
+          if (replyTx) {
+            history.push(`/t/${replyTx}`);
+          } else if (hash === "#ideas") {
+            history.push("/methods");
+          } else if (hash === "#projects") {
+            history.push("/projects");
+          } else {
+            history.push("/");
+          }
         })
         .catch((e) => {
           console.log(e);
@@ -107,7 +117,15 @@ export default function Composer(props) {
         //console.log(res)
         setOpen(false);
         setContent("");
-        history.push("/");
+        if (replyTx) {
+          history.push(`/t/${replyTx}`);
+        } else if (hash === "#ideas") {
+          history.push("/methods");
+        } else if (hash === "#projects") {
+          history.push("/projects");
+        } else {
+          history.push("/");
+        }
       })
       .catch((e) => {
         console.log(e);
