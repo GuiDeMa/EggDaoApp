@@ -1,10 +1,10 @@
 import { useHistory } from "react-router-dom";
 import { SvgIcon, IconButton, Typography } from "@material-ui/core";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { useState } from "react";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#085AF6"

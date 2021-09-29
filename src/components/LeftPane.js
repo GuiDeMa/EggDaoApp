@@ -188,16 +188,6 @@ export default function LeftPane(props) {
                     </Typography>
                   </ListItemText>
                 </ListItem>
-                <ListItem button component={Link} to="/intents">
-                  <ListItemIcon>
-                    <HelpOutlineOutlinedIcon color={isSelected("Questions")} />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Typography variant="body1" color={isSelected("Questions")}>
-                      Questions
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
                 <ListItem button component={Link} to="/methods">
                   <ListItemIcon>
                     <EmojiObjectsOutlinedIcon color={isSelected("Ideas")} />
@@ -228,7 +218,7 @@ export default function LeftPane(props) {
                     </Typography>
                   </ListItemText>
                 </ListItem>
-                <ListItem button component={Link} to="/features">
+                {/* <ListItem button component={Link} to="/features">
                   <ListItemIcon>
                     <LockOutlinedIcon color={isSelected("Features")} />
                   </ListItemIcon>
@@ -237,7 +227,7 @@ export default function LeftPane(props) {
                       Features
                     </Typography>
                   </ListItemText>
-                </ListItem>
+                </ListItem> */}
                 <ListItem button component={Link} to="/settings">
                   <ListItemIcon>
                     <SettingsIcon color={isSelected("Settings")} />

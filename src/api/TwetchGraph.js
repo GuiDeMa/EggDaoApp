@@ -129,7 +129,7 @@ export function FetchNotifications(offset) {
 export function FetchPosts(filter, order, offset) {
   //console.log(filter);
   return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {bContent: {includes: "${filter}"}}) {
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {bContent: {endsWith: "${filter}"}}) {
       totalCount
       edges {
         node {

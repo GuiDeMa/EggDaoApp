@@ -5,7 +5,7 @@ import {
   IconButton,
   Typography
 } from "@material-ui/core";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
@@ -20,17 +20,25 @@ import {
   publishRequest
 } from "../api/TwetchActions";
 
-const theme = createMuiTheme({
+const Twetch = require("@twetch/sdk");
+
+const theme = createTheme({
   palette: {
     primary: {
       // Purple and green play nicely together.
       main: "#E81212"
+    },
+    secondary: {
+      main: "#b17c01"
     }
   }
 });
 
 export default function LikeIcon(props) {
   const window1 = props.window;
+  const twetch = new Twetch({
+    clientIdentifier: "10d3b9a3-3733-4769-9f97-d255ee37113b"
+  });
   const container =
     window1 !== undefined ? () => window().document.body : undefined;
   const txId = props.tx;
@@ -38,27 +46,22 @@ export default function LikeIcon(props) {
   const [count, setCount] = useState(props.count);
   const [likedCalc, setLikedCalc] = useState(props.likedCalc);
 
+  useEffect(() => {
+    const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
+    twetch.wallet.restore(pKey);
+  }, []);
+
   const handleClick = (e) => {
     e.stopPropagation();
+
     if (!localStorage.tokenTwetchAuth) {
       alert("Please Log in"); //Snackbar
       return;
     }
     if (localStorage.isOneClick === "true") {
-      try {
-        likePost(txId);
-        // setCount(count + 1);
-        // setLikedCalc(likedCalc + 1);
-      } catch {}
+      likePost(txId);
     } else {
       setOpen(true);
-      if (localStorage.wallet !== "handcash") {
-        try {
-          likePost(txId);
-          //setCount(count + 1);
-          //setLikedCalc(likedCalc + 1);
-        } catch {}
-      }
     }
   };
 
@@ -107,7 +110,7 @@ export default function LikeIcon(props) {
                   textDecoration: "none"
                 }}
               >
-                ZeroSchool
+                Twetch
                 <span style={{ color: "#085AF6", fontSize: "16px" }}>Pay</span>
               </div>
               <div style={{ flexGrow: 1 }} />
@@ -132,35 +135,36 @@ export default function LikeIcon(props) {
                 marginBottom: "16px"
               }}
             >
-              {localStorage.wallet === "handcash" && (
-                <div>
-                  <Typography
-                    style={{
-                      color: "#1A1A1C",
-                      margin: "0 auto",
-                      fontSize: "36px",
-                      textAlign: "center",
-                      fontWeight: 600,
-                      lineHeight: "44px"
-                    }}
-                    variant="body1"
-                  >
-                    $0.02
-                  </Typography>
-                  <Typography
-                    style={{
-                      color: "#A5A4A9",
-                      margin: "0 auto",
-                      fontSize: "16px",
-                      marginTop: "2px",
-                      textAlign: "center",
-                      lineHeight: "20px",
-                      marginBottom: "18px"
-                    }}
-                    variant="body1"
-                  >
-                    0.00013378 BSV
-                  </Typography>
+              <div>
+                <Typography
+                  style={{
+                    color: "#1A1A1C",
+                    margin: "0 auto",
+                    fontSize: "36px",
+                    textAlign: "center",
+                    fontWeight: 600,
+                    lineHeight: "44px"
+                  }}
+                  variant="body1"
+                >
+                  $0.05
+                </Typography>
+                <Typography
+                  style={{
+                    color: "#A5A4A9",
+                    margin: "0 auto",
+                    fontSize: "16px",
+                    marginTop: "2px",
+                    textAlign: "center",
+                    lineHeight: "20px",
+                    marginBottom: "18px"
+                  }}
+                  variant="body1"
+                >
+                  0.00039463 BSV
+                </Typography>
+                <div style={{ display: "flex" }}>
+                  <div style={{ flexGrow: 1 }} />
                   <Button
                     style={{
                       width: "257px",
@@ -171,7 +175,7 @@ export default function LikeIcon(props) {
                       lineWeight: "24px",
                       textTransform: "none"
                     }}
-                    color="primary"
+                    color="secondary"
                     variant="contained"
                     onClick={() => {
                       likePost(txId);
@@ -179,39 +183,9 @@ export default function LikeIcon(props) {
                   >
                     Like It!
                   </Button>
+                  <div style={{ flexGrow: 1 }} />
                 </div>
-              )}
-              {localStorage.wallet === "moneybutton" && (
-                <div
-                  id={`moneybutton-like-${txId}`}
-                  style={{
-                    width: "257px",
-                    display: "block",
-                    padding: "14px",
-                    fontSize: "16px",
-                    fontWeight: 600,
-                    lineWeight: "24px",
-                    textTransform: "none"
-                  }}
-                ></div>
-              )}
-              {localStorage.wallet === "relayx" && (
-                <Button
-                  style={{
-                    width: "257px",
-                    display: "block",
-                    padding: "14px",
-                    fontSize: "16px",
-                    fontWeight: 600,
-                    lineWeight: "24px",
-                    textTransform: "none"
-                  }}
-                  color="primary"
-                  variant="contained"
-                >
-                  Twetch It!
-                </Button>
-              )}
+              </div>
             </div>
             <div style={{ height: "10vh" }}></div>
           </div>
@@ -222,181 +196,15 @@ export default function LikeIcon(props) {
   );
 
   async function likePost(txid) {
-    //let likeCount = parseInt(document.getElementById(`${this.id}_count`).innerText);
-
-    let action = "twetch/like@0.0.1";
-
-    let obj = { postTransaction: txid };
-    const abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
-    abi.fromObject(obj);
-    let payees = await getPayees({ args: abi.toArray(), action });
-    await abi.replace({ "#{invoice}": () => payees.invoice });
-    let arg = abi.action.args.find((e) => e.type === "Signature");
-    const ab = abi
-      .toArray()
-      .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
-    const contentHash = await digestMessage(ab);
-    let outputScript = window.bsv.Script.buildSafeDataOut(
-      abi.toArray()
-    ).toASM();
-    let outputs = { currency: "BSV", amount: 0, script: outputScript };
-    let relayOutputs = {
-      currency: "BSV",
-      amount: 0,
-      signatures: ["TWETCH-AIP"],
-      script: arrToScript(abi.args.slice(0, abi.args.length - 5))
-    };
-    outputs = [outputs].concat(payees.payees);
-    //console.log("mb", mbOutputs);
-    relayOutputs = [relayOutputs].concat(payees.payees);
-    //console.log("relay", relayOutputs);
-    let cryptoOperations = [
-      { name: "myAddress", method: "address", key: "identity" },
-      {
-        name: "mySignature",
-        method: "sign",
-        data: contentHash,
-        dataEncoding: "utf8",
-        key: "identity",
-        algorithm: "bitcoin-signed-message"
-      }
-    ];
-    if (localStorage.wallet === "moneybutton") {
-      let outputScript = window.bsv.Script.buildSafeDataOut(
-        abi.toArray()
-      ).toASM();
-      let outputs = [{ currency: "BSV", amount: 0, script: outputScript }];
-      outputs = outputs.concat(payees.payees);
-      console.log(outputs);
-      let cryptoOperations = [
-        { name: "myAddress", method: "address", key: "identity" },
-        {
-          name: "mySignature",
-          method: "sign",
-          data: contentHash,
-          dataEncoding: "utf8",
-          key: "identity",
-          algorithm: "bitcoin-signed-message"
-        }
-      ];
-      let getPermissionForCurrentUser = () => {
-        return localStorage.token;
-      };
-      if (localStorage.isOneClick === "false") {
-        window.moneyButton.render(
-          document.getElementById(`moneybutton-like-${txid}`),
-          {
-            label: "Like it!",
-            outputs,
-            cryptoOperations,
-            onPayment: async (payment) => {
-              await publishRequest({
-                signed_raw_tx: payment.rawtx,
-                action: action,
-                broadcast: true,
-                invoice: payees.invoice,
-                payParams: {
-                  tweetFromTwetch: false,
-                  hideTweetFromTwetchLink: false
-                }
-              }).then((res) => {
-                setCount(parseInt(count) + 1);
-                setLikedCalc(parseInt(likedCalc) + 1);
-              });
-            },
-            onError: (err) => console.log(err)
-          }
-        );
-      } else {
-        const imb = new window.moneyButton.IMB({
-          clientIdentifier: imbCli,
-          permission: getPermissionForCurrentUser(),
-          onNewPermissionGranted: (token) =>
-            localStorage.setItem("token", token)
-        });
-        imb.swipe({
-          outputs,
-          cryptoOperations,
-          onPayment: async (payment) => {
-            await publishRequest({
-              signed_raw_tx: payment.rawtx,
-              action: action,
-              broadcast: true,
-              invoice: payees.invoice,
-              payParams: {
-                tweetFromTwetch: false,
-                hideTweetFromTwetchLink: false
-              }
-            }).then((res) => {
-              setCount(parseInt(count) + 1);
-              setLikedCalc(parseInt(likedCalc) + 1);
-            });
-          },
-          onError: (err) => console.log(err)
-        });
-      }
-    } else {
-      console.log("other wallets to be implemented");
-    }
-    /* const penny = await getPenny();
-  const liked = outputs.find(
-    (o) => JSON.stringify(o).includes("like") && o.user_id !== "0"
-  );
-  if (liked) {
-    outputs.push({ to: liked.to, amount: penny * 4, currency: "BSV" });
-    outputs.push({
-      to: "1C2meU6ukY9S4tY6DdbhNqc8PuDhif5vPE",
-      amount: penny,
-      currency: "BSV"
-    });
-  } */
-    /* window.twetchPay
-    .pay({
-      //wallets: ["moneybutton", "relayx"],
-      outputs: outputs,
-      label: "Twetch it",
-      moneybuttonProps: {
-        cryptoOperations: cryptoOperations,
-        onCryptoOperations: (cryptoOperations) => {
-          console.log(cryptoOperations);
-        }
-      },
-      relayxProps: {},
-      onPayment: (payment) => {
-        console.log({ payment });
-        let paymail, pubkey;
-        if (payment.walletResponse.senderPaymail) {
-          paymail = payment.walletResponse.senderPaymail;
-          pubkey = payment.walletResponse.signaturePubkey;
-        } else {
-          paymail = payment.walletResponse.paymail;
-          pubkey = payment.walletResponse.identity;
-        }
-        console.log("Paymail: ", paymail);
-        console.log("Public (Identity) key: ", pubkey);
-        console.log("txid: ", payment.txid);
-        console.log("rawTx: ", payment.rawtx);
-
-        let params = {
-          signed_raw_tx: payment.rawtx,
-          action: action,
-          broadcast: true,
-          invoice: payees.invoice,
-          payParams: {
-            tweetFromTwetch: false,
-            hideTweetFromTwetchLink: false
-          }
-        };
-
-        publishRequest(params);
-      }
-    })
-    .then((res) => {
-      console.log(res);
-    }); */
-
-    //await build(txid, "twetch/like@0.0.1", false);
-    //await send("twetch/like@0.0.1", txid, false);
+    twetch
+      .publish("twetch/like@0.0.1", { postTransaction: txid })
+      .then((res) => {
+        setCount(parseInt(count) + 1);
+        setLikedCalc(parseInt(likedCalc) + 1);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (

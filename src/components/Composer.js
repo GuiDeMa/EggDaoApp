@@ -13,8 +13,8 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
-import { Link } from "react-router-dom";
+import { MuiAlert } from "@material-ui/lab";
+import { Link, useHistory } from "react-router-dom";
 import { imbCli } from "../page/Auth";
 import { handCashConnect } from "../page/Auth";
 import { BSVABI } from "../utils/BSVABI";
@@ -27,24 +27,30 @@ import {
   publishRequest
 } from "../api/TwetchActions";
 
+const Twetch = require("@twetch/sdk");
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 export default function Composer(props) {
   const window = props.window;
+  const history = useHistory();
   const container =
     window !== undefined ? () => window().document.body : undefined;
   const replyTx = props.replyTx;
-  const [placeholder, setPlaceholder] = useState(
-    "What do you *really* wanna learn?"
-  );
+  const [placeholder, setPlaceholder] = useState("What's the latest?");
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const twetch = new Twetch({
+    clientIdentifier: "10d3b9a3-3733-4769-9f97-d255ee37113b"
+  });
 
   useEffect(() => {
+    const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
+    twetch.wallet.restore(pKey);
     if (replyTx) {
       console.log(replyTx);
       twquery(`{
@@ -75,19 +81,25 @@ export default function Composer(props) {
     e.preventDefault();
     if (localStorage.isOneClick === "false") {
       setOpen(true);
-      localStorage.wallet !== "handcash" && twetchPost(content, replyTx);
     } else {
-      twetchPost(content, replyTx);
-      setContent("");
+      twetchPost(content, replyTx)
+        .then((res) => {
+          //console.log(res);
+          setContent("");
+          history.push("/");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
   };
 
   const getColor = () => {
     //console.log(256 - content.length);
-    if (content.length > 255) {
+    if (content.length > 250) {
       return "#E81212";
     } else {
-      if (256 - content.length < 21) {
+      if (251 - content.length < 21) {
         return "#085AF6";
       } else {
         return "#696969";
@@ -97,6 +109,19 @@ export default function Composer(props) {
   const handleDrawerToggle = (e) => {
     e.stopPropagation();
     setOpen(!open);
+  };
+
+  const handle1Click = (e) => {
+    e.stopPropagation();
+    twetchPost(content, replyTx)
+      .then((res) => {
+        //console.log(res);
+        setContent("");
+        history.push("/");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const pay = (
@@ -259,95 +284,26 @@ export default function Composer(props) {
                 </div>
               </div>
             </div>
-            <div
-              id="button"
-              style={{
-                marginBottom: "16px"
-              }}
-            >
-              {localStorage.wallet === "handcash" && (
-                <div>
-                  <Typography
-                    style={{
-                      color: "#1A1A1C",
-                      margin: "0 auto",
-                      fontSize: "36px",
-                      textAlign: "center",
-                      fontWeight: 600,
-                      lineHeight: "44px"
-                    }}
-                    variant="body1"
-                  >
-                    $0.02
-                  </Typography>
-                  <Typography
-                    style={{
-                      color: "#A5A4A9",
-                      margin: "0 auto",
-                      fontSize: "16px",
-                      marginTop: "2px",
-                      textAlign: "center",
-                      lineHeight: "20px",
-                      marginBottom: "18px"
-                    }}
-                    variant="body1"
-                  >
-                    0.00013378 BSV
-                  </Typography>
-                  <Button
-                    style={{
-                      width: "257px",
-                      display: "block",
-                      padding: "14px",
-                      fontSize: "16px",
-                      fontWeight: 600,
-                      lineWeight: "24px",
-                      textTransform: "none"
-                    }}
-                    color="primary"
-                    variant="contained"
-                    onClick={() => {
-                      twetchPost(content, replyTx);
-                      setContent("");
-                    }}
-                  >
-                    Twetch It!
-                  </Button>
-                </div>
-              )}
-              {localStorage.wallet === "moneybutton" && (
-                <div
-                  id="moneybutton-post"
-                  style={{
-                    width: "257px",
-                    display: "block",
-                    padding: "14px",
-                    fontSize: "16px",
-                    fontWeight: 600,
-                    lineWeight: "24px",
-                    textTransform: "none"
-                  }}
-                ></div>
-              )}
-              {localStorage.wallet === "relayx" && (
-                <Button
-                  style={{
-                    width: "257px",
-                    display: "block",
-                    padding: "14px",
-                    fontSize: "16px",
-                    fontWeight: 600,
-                    lineWeight: "24px",
-                    textTransform: "none"
-                  }}
-                  color="primary"
-                  variant="contained"
-                >
-                  Twetch It!
-                </Button>
-              )}
+            <div style={{ display: "flex" }}>
+              <div style={{ flexGrow: 1 }} />
+              <Button
+                style={{
+                  width: "257px",
+                  padding: "14px",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  lineWeight: "24px",
+                  textTransform: "none"
+                }}
+                color="primary"
+                variant="contained"
+                onClick={handle1Click}
+              >
+                Twetch It!
+              </Button>
+              <div style={{ flexGrow: 1 }} />
             </div>
-            <div style={{ height: "10vh" }}></div>
+            <div style={{ height: "10vh" }} />
           </div>
           <div style={{ flexGrow: 1 }}></div>
         </div>
@@ -356,249 +312,19 @@ export default function Composer(props) {
   );
 
   const twetchPost = async (text, replyTx) => {
-    const action = "twetch/post@0.0.1";
-    let abi;
-    if (!localStorage.tokenTwetchAuth) {
-      alert("Please login!");
-      return;
-    }
-    //Construct Twetch ABI
-    if (localStorage.abi) {
-      abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
-    } else {
-      abi = await getABI();
-      localStorage.setItem("abi", JSON.stringify(abi));
-    }
-
-    let content = text;
-    let hash = window.location.hash;
-    if (!hash) {
-      hash = "$zeroschool";
-    }
-    //content += ` ${hash}`;
-
-    let obj = {
-      bContent: content,
-      mapReply: replyTx
+    const payload = {
+      bContent: text,
+      mapReply: replyTx,
+      mapComment: " $EGG"
     };
-
-    abi.fromObject(obj);
-
-    let payees = await getPayees({ args: abi.toArray(), action });
-    await abi.replace({ "#{invoice}": () => payees.invoice });
-
-    let arg = abi.action.args.find((e) => e.type === "Signature");
-    const ab = abi
-      .toArray()
-      .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
-    const contentHash = await digestMessage(ab);
-
-    if (localStorage.wallet === "handcash") {
-      return;
-      const account = handCashConnect.getAccountFromAuthToken(
-        localStorage.token
-      );
-
-      const { publicKey, signature } = await account.profile.signData({
-        value: contentHash,
-        format: "utf-8"
+    twetch
+      .publish("twetch/post@0.0.1", payload)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      console.log(publicKey);
-      let myAddress = await window.bsv.PublicKey.fromHex(publicKey)
-        .toAddress()
-        .toString();
-      console.log(myAddress);
-      await abi.replace({ "#{myAddress}": () => myAddress });
-      await abi.replace({ "#{mySignature}": () => signature });
-
-      let outputScript = abi.args.toString("hex");
-      outputScript = Buffer.from(outputScript).toString("hex");
-      const paymentParameters = {
-        appAction: "EggDao post",
-        payments: payees.payees.map((p) => {
-          return {
-            destination: p.to,
-            currencyCode: p.currency,
-            sendAmount: p.amount
-          };
-        }),
-        attachment: { format: "hex", value: outputScript }
-      };
-      return;
-      //console.log(paymentParameters);
-      let payment = await account.wallet
-        .pay(paymentParameters)
-        .catch((err) => console.log(err));
-      if (payment) {
-        console.log(payment);
-        console.log(payment.rawTransactionHex);
-        await publishRequest({
-          signed_raw_tx: payment.rawTransactionHex,
-          action: action,
-          broadcast: true,
-          invoice: payees.invoice,
-          payParams: {
-            tweetFromTwetch: false,
-            hideTweetFromTwetchLink: false
-          }
-        });
-      }
-    } else if (localStorage.wallet === "moneybutton") {
-      let outputScript = window.bsv.Script.buildSafeDataOut(
-        abi.toArray()
-      ).toASM();
-      let outputs = [{ currency: "BSV", amount: 0, script: outputScript }];
-      outputs = outputs.concat(payees.payees);
-      console.log(outputs);
-      let cryptoOperations = [
-        { name: "myAddress", method: "address", key: "identity" },
-        {
-          name: "mySignature",
-          method: "sign",
-          data: contentHash,
-          dataEncoding: "utf8",
-          key: "identity",
-          algorithm: "bitcoin-signed-message"
-        }
-      ];
-      let getPermissionForCurrentUser = () => {
-        return localStorage.token;
-      };
-      if (localStorage.isOneClick === "false") {
-        window.moneyButton.render(document.getElementById("moneybutton-post"), {
-          label: "Twetch it!",
-          outputs,
-          cryptoOperations,
-          onPayment: async (payment) => {
-            await publishRequest({
-              signed_raw_tx: payment.rawtx,
-              action: action,
-              broadcast: true,
-              invoice: payees.invoice,
-              payParams: {
-                tweetFromTwetch: false,
-                hideTweetFromTwetchLink: false
-              }
-            })
-              .then((res) => {
-                console.log(res);
-                setSuccess(true);
-              })
-              .err((e) => {
-                console.log(e);
-                setError(true);
-              });
-          },
-          onError: (err) => console.log(err)
-        });
-      } else {
-        const imb = new window.moneyButton.IMB({
-          clientIdentifier: imbCli,
-          permission: getPermissionForCurrentUser(),
-          onNewPermissionGranted: (token) =>
-            localStorage.setItem("token", token)
-        });
-        imb.swipe({
-          outputs,
-          cryptoOperations,
-          onPayment: async (payment) => {
-            await publishRequest({
-              signed_raw_tx: payment.rawtx,
-              action: action,
-              broadcast: true,
-              invoice: payees.invoice,
-              payParams: {
-                tweetFromTwetch: false,
-                hideTweetFromTwetchLink: false
-              }
-            })
-              .then((res) => {
-                console.log(res);
-                setSuccess(true);
-              })
-              .err((e) => {
-                console.log(e);
-                setError(true);
-              });
-          },
-          onError: (err) => console.log(err)
-        });
-      }
-    } else if (localStorage.wallet === "relayx") {
-      return;
-      let outputs = {
-        currency: "BSV",
-        amount: 0,
-        signatures: ["TWETCH-AIP"],
-        script: arrToScript(abi.args.slice(0, abi.args.length - 5))
-      };
-      outputs = outputs.concat(payees.payees);
-      let res = await window.relayone.send({ outputs });
-      if (res.txid) {
-        await publishRequest({
-          signed_raw_tx: res.rawTx,
-          action: action,
-          broadcast: true,
-          invoice: payees.invoice,
-          payParams: {
-            tweetFromTwetch: false,
-            hideTweetFromTwetchLink: false
-          }
-        });
-      } else {
-        console.log("Failed to broadcast");
-      }
-    }
-    /* window.twetchPay
-    .pay({
-      //wallets: ["moneybutton", "relayx"],
-      outputs: outputs,
-      label: "Twetch it",
-      moneybuttonProps: {
-        cryptoOperations: cryptoOperations,
-        onCryptoOperations: (cryptoOperations) => {
-          console.log(cryptoOperations);
-        }
-      },
-      relayxProps: {
-        outputs: relayOutputs
-      },
-      onPayment: (payment) => {
-        console.log({ payment });
-        let paymail, pubkey;
-        if (payment.walletResponse.senderPaymail) {
-          paymail = payment.walletResponse.senderPaymail;
-          pubkey = payment.walletResponse.signaturePubkey;
-        } else {
-          paymail = payment.walletResponse.paymail;
-          pubkey = payment.walletResponse.identity;
-        }
-        console.log("Paymail: ", paymail);
-        console.log("Public (Identity) key: ", pubkey);
-        console.log("txid: ", payment.txid);
-        console.log("rawTx: ", payment.rawtx);
-
-        let params = {
-          signed_raw_tx: payment.rawtx,
-          action: action,
-          broadcast: true,
-          invoice: payees.invoice,
-          payParams: {
-            tweetFromTwetch: false,
-            hideTweetFromTwetchLink: false
-          }
-        };
-
-        publishRequest(params).then((res) => console.log(res));
-      }
-    })
-    .then((res) => {
-      console.log(res);
-    }); */
-
-    //await build(content, "twetch/post@0.0.1", replyTx);
-    //let res = await send("twetch/post@0.0.1");
-    //console.log(res);
   };
 
   const handleCloseSuccess = (event, reason) => {
@@ -671,7 +397,7 @@ export default function Composer(props) {
                   }}
                   variant="body1"
                 >
-                  {256 - content.length}
+                  {250 - content.length}
                 </Typography>
               </div>
             </div>
