@@ -11,7 +11,6 @@ import {
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { getBoosts } from "../api/boost";
 import { FetchPosts } from "../api/TwetchGraph";
 import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
@@ -39,7 +38,7 @@ export default function Home(props) {
   //const [filter, setFilter] = useState(props.filter);
   const [postList, setPostList] = useState([]);
   const [offset, setOffset] = useState(0);
-  const [boosts, setBoosts] = useState([]);
+  //const [boosts, setBoosts] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -79,14 +78,14 @@ export default function Home(props) {
     setOffset(0);
   };
 
-  const getDiff = (tx) => {
+  /* const getDiff = (tx) => {
     let diff = 0;
     let found = boosts.find((x) => x.tx === tx);
     if (found) {
       diff = found.diff;
     }
     return diff;
-  };
+  }; */
 
   const scrollTop = (e) => {
     document.getElementById("scrollable").scrollTo(0, 0);
@@ -211,12 +210,7 @@ export default function Home(props) {
               >
                 {postList.map((post, index) => {
                   return (
-                    <Post
-                      {...post}
-                      boostDiff={getDiff(post.node.transaction)}
-                      key={index}
-                      tx={post.node.transaction}
-                    />
+                    <Post {...post} key={index} tx={post.node.transaction} />
                   );
                 })}
               </InfiniteScroll>

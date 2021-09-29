@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IconButton, Hidden } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import { getBoosts } from "../api/boost";
 import { FetchPostDetail } from "../api/TwetchGraph";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
@@ -13,7 +12,7 @@ import Composer from "../components/Composer";
 export default function Compose(props) {
   const txId = props.match.params.id;
   const [postData, setPostData] = useState([]);
-  const [boosts, setBoosts] = useState([]);
+  //const [boosts, setBoosts] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -26,15 +25,14 @@ export default function Compose(props) {
     //getBoosts().then((res) => setBoosts(res));
   }, [txId]);
 
-  const getDiff = (tx) => {
+  /* const getDiff = (tx) => {
     let diff = 0;
     let found = boosts.find((x) => x.tx === tx);
     if (found) {
       diff = found.diff;
     }
     return diff;
-  };
-  console.log(postData);
+  }; */
 
   return (
     <div

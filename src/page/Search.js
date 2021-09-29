@@ -16,7 +16,6 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { getBoosts } from "../api/boost";
 import { FetchPosts } from "../api/TwetchGraph";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";

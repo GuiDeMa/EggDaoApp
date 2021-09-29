@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IconButton } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
-import { Alert } from "@material-ui/lab/";
+import { Alert } from "@mui/material";
 import FilterNoneIcon from "@material-ui/icons/FilterNone";
 
 export default function CopyIcon(props) {

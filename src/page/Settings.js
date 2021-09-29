@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  FormControl,
-  Hidden,
-  MenuItem,
-  Select,
-  Switch,
-  Typography
-} from "@material-ui/core";
+import { Hidden, Switch, Typography } from "@material-ui/core";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";

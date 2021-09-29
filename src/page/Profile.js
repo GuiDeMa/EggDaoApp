@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { use100vh } from "react-div-100vh";
-import { getBoosts } from "../api/boost";
 import { FetchUserData, FetchUserPosts } from "../api/TwetchGraph";
 import StickyButton from "../components/StickyButton";
 import LeftPane from "../components/LeftPane";
