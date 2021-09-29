@@ -110,6 +110,12 @@ export default function Features(props) {
                 address="1C2meU6ukY9S4tY6DdbhNqc8PuDhif5vPE"
                 target={218}
               />
+              <Feature
+                title="Boost Content"
+                description="Attach energy to your ideas to signal their value in the most honest way possible"
+                address="1C2meU6ukY9S4tY6DdbhNqc8PuDhif5vPE"
+                target={2.18}
+              />
               <Typography
                 variant="body1"
                 style={{
@@ -123,13 +129,6 @@ export default function Features(props) {
               >
                 Completed
               </Typography>
-              <Feature
-                title="Boost Content"
-                description="Attach energy to your ideas to signal their value in the most honest way possible"
-                address="1C2meU6ukY9S4tY6DdbhNqc8PuDhif5vPE"
-                target={2.18}
-                completed
-              />
             </Grid>
           </Grid>
         </div>

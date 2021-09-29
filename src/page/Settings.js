@@ -12,29 +12,11 @@ import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
 
-const indexToWallet = {
-  0: "moneybutton",
-  10: "relayx",
-  20: "handcash"
-};
-const walletToIndex = {
-  moneybutton: 0,
-  relayx: 10,
-  handcash: 20
-};
-
 export default function Settings(props) {
-  const [wallet, setWallet] = useState(walletToIndex[localStorage.wallet]);
   const [isOneClick, setIsOneClick] = useState(
     localStorage.isOneClick === "true" ? true : false || false
   );
   const history = useHistory();
-
-  const handleChangeWallet = (e) => {
-    e.preventDefault();
-    setWallet(e.target.value);
-    localStorage.setItem("wallet", indexToWallet[e.target.value]);
-  };
 
   const handleChange1Click = (e) => {
     e.preventDefault();
@@ -102,6 +84,7 @@ export default function Settings(props) {
             </Typography>
             <div style={{ flexGrow: 1 }} />
             <Switch
+              disabled
               color="primary"
               style={{
                 float: "right"
@@ -137,35 +120,6 @@ export default function Settings(props) {
                 float: "right"
               }}
             />
-          </div>
-          <div
-            style={{
-              height: "63px",
-              display: "flex",
-              padding: "20px",
-              borderBottom: "1px solid #F2F2F2"
-            }}
-          >
-            <Typography
-              style={{
-                color: "#000000",
-                display: "inline-block",
-                fontSize: "17px",
-                fontWeight: "bold",
-                lineHeight: "21px"
-              }}
-              variant="body1"
-            >
-              Select Wallet
-            </Typography>
-            <div style={{ flexGrow: 1 }} />
-            <FormControl>
-              <Select value={wallet} onChange={handleChangeWallet}>
-                <MenuItem value={0}>MoneyButton</MenuItem>
-                <MenuItem value={10}>RelayX</MenuItem>
-                <MenuItem value={20}>HandCash</MenuItem>
-              </Select>
-            </FormControl>
           </div>
           <div
             style={{

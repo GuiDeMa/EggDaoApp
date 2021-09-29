@@ -33,7 +33,7 @@ const OrderToIndex = {
 };
 
 export default function Home(props) {
-  const filter = "";
+  const filter = "$egg";
   //console.log(filter);
   const [orderBy, setOrderBy] = useState(indexToOrder[0]);
   //const [filter, setFilter] = useState(props.filter);

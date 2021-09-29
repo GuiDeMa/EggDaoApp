@@ -12,6 +12,7 @@
     "@material-ui/core": "4.12.3",
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.58",
+    "@twetch/sdk": "0.2.12",
     "boostpow-js": "1.2.22",
     "bsv": "2.0.10-beta1",
     "react": "17.0.2",
