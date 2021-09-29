@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory, Link } from "react-router-dom";
 import { Avatar, Grid, IconButton, Typography } from "@material-ui/core";
 import LikeIcon from "../resources/LikeIcon";
@@ -7,7 +7,7 @@ import BoostIcon from "../resources/BoostIcon";
 import CopyIcon from "../resources/CopyIcon";
 import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
-import defaultAvatar from "../resources/squareApu.png";
+import defaultAvatar from "../resources/eggApu.png";
 
 export default function Post(props) {
   const postTx = props.tx;
