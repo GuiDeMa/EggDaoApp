@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { use100vh } from "react-div-100vh";
-import { getBoosts } from "../api/boost";
 import { FetchPostDetail, FetchPostReplies } from "../api/TwetchGraph";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";

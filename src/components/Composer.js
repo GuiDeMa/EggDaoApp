@@ -9,15 +9,11 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
-import { MuiAlert } from "@material-ui/lab";
+import { Alert } from "@mui/material";
 import { Link, useHistory } from "react-router-dom";
 import { twquery } from "../api/TwetchGraph";
 
 const Twetch = require("@twetch/sdk");
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function Composer(props) {
   const window = props.window;

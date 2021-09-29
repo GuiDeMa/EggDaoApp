@@ -4,17 +4,12 @@ import { Button } from "@material-ui/core";
 
 import { twquery } from "../api/TwetchGraph";
 
-const { HandCashConnect } = require("@handcash/handcash-connect");
-export const handCashConnect = new HandCashConnect("60d35d1304898f0b46b7da39");
-// Use this field to redirect the user to the HandCash authorization screen.
-const redirectionLoginUrl = handCashConnect.getRedirectionUrl();
-
 export const imbCli = window.location.href.includes("csb")
   ? "d1782f2caa2a71f85576cc0423818882"
   : "ce4eb6ea41a4f43044dd7e71c08e50b2";
 
 export default function Auth() {
-  const history = useHistory();
+  //const history = useHistory();
   const host = window.location.host;
 
   const TwetchLogin = (e) => {
@@ -25,12 +20,12 @@ export default function Auth() {
     window.location.href = `https://twetch.app/auth/authorize?appName=${appName}&redirectUrl=${redirectUrl}`;
   };
 
-  const HandCashLogin = (e) => {
+  /* const HandCashLogin = (e) => {
     e.preventDefault();
     window.location.href = redirectionLoginUrl;
-  };
+  }; */
 
-  const MBLogin = async () => {
+  /* const MBLogin = async () => {
     // is also in TwetchAction component
 
     let getPermissionForCurrentUser = () => {
@@ -106,7 +101,7 @@ export default function Auth() {
           console.log(e);
         }
       });
-  };
+  }; */
   return (
     <div
       style={{

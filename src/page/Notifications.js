@@ -1,26 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Button,
-  CircularProgress,
-  FormControl,
-  Hidden,
-  MenuItem,
-  Select
-} from "@material-ui/core";
+import { Button, CircularProgress, Hidden } from "@material-ui/core";
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { getBoosts } from "../api/boost";
 import { FetchNotifications } from "../api/TwetchGraph";
-import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
 import NotifDetail from "../components/NotifDetail";
 
 export default function Notifications(props) {
-  const filter = "";
+  //const filter = "";
   //console.log(filter);
   //const [filter, setFilter] = useState(props.filter);
   const [notificationList, setNotificationList] = useState([]);
@@ -37,7 +28,7 @@ export default function Notifications(props) {
     fetchMore();
     setLoading(false);
     //getBoosts().then((res) => setBoosts(res));
-  }, []);
+  });
 
   const fetchMore = () => {
     FetchNotifications(offset).then((res) => {

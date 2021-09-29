@@ -1,31 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  FormControl,
-  Hidden,
-  InputAdornment,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  Typography,
-  LinearProgress
-} from "@material-ui/core";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { Button, Grid, Hidden, Typography } from "@material-ui/core";
 import { use100vh } from "react-div-100vh";
-import InfiniteScroll from "react-infinite-scroll-component";
 
-import { getBoosts } from "../api/boost";
-import { FetchPosts } from "../api/TwetchGraph";
-import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
 import Feature from "../components/Feature";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
-import Post from "../components/Post";
-import StickyButton from "../components/StickyButton";
 
 export default function Features(props) {
   const history = useHistory();
