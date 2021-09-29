@@ -4,28 +4,14 @@ import {
   Button,
   Drawer,
   Grid,
-  FormControl,
-  MenuItem,
-  Select,
   Snackbar,
   InputAdornment,
-  LinearProgress,
   TextField,
   Typography
 } from "@material-ui/core";
 import { MuiAlert } from "@material-ui/lab";
 import { Link, useHistory } from "react-router-dom";
-import { imbCli } from "../page/Auth";
-import { handCashConnect } from "../page/Auth";
-import { BSVABI } from "../utils/BSVABI";
 import { twquery } from "../api/TwetchGraph";
-import {
-  arrToScript,
-  digestMessage,
-  getABI,
-  getPayees,
-  publishRequest
-} from "../api/TwetchActions";
 
 const Twetch = require("@twetch/sdk");
 
@@ -71,7 +57,7 @@ export default function Composer(props) {
         )
       );
     }
-  }, []);
+  });
 
   const handleChangeContent = (e) => {
     setContent(e.target.value);

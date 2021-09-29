@@ -7,18 +7,7 @@ import {
 } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import { makeStyles } from "@material-ui/core/styles";
 import { useState, useEffect } from "react";
-import { imbCli } from "../page/Auth";
-
-import { BSVABI } from "../utils/BSVABI";
-import {
-  arrToScript,
-  digestMessage,
-  getPayees,
-  getPenny,
-  publishRequest
-} from "../api/TwetchActions";
 
 const Twetch = require("@twetch/sdk");
 
@@ -49,7 +38,7 @@ export default function LikeIcon(props) {
   useEffect(() => {
     const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
     twetch.wallet.restore(pKey);
-  }, []);
+  });
 
   const handleClick = (e) => {
     e.stopPropagation();
