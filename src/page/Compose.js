@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IconButton, Hidden } from "@mui/material";
-import KeyboardBackspaceIcon from "@mui/icons-material";
+import { KeyboardBackspaceIcon } from "@mui/icons-material";
 import { FetchPostDetail } from "../api/TwetchGraph";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
