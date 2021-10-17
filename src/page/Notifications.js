@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, CircularProgress, Hidden } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Hidden,
+  useMediaQuery,
+  useTheme
+} from "@mui/material";
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -19,13 +25,17 @@ export default function Notifications(props) {
   const [totalCount, setTotalCount] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
   const history = useHistory();
   const height = use100vh();
   const containerHeight = height ? height : "100vh";
 
   useEffect(() => {
     setLoading(true);
-    fetchMore();
+    if (localStorage.tokenTwetchAuth) {
+      fetchMore();
+    }
+
     setLoading(false);
     //getBoosts().then((res) => setBoosts(res));
   });
@@ -51,6 +61,10 @@ export default function Notifications(props) {
     document.getElementById("scrollable").scrollTo(0, 0);
   };
 
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div
       style={{
@@ -58,9 +72,7 @@ export default function Notifications(props) {
         justifyContent: "center"
       }}
     >
-      <Hidden smDown>
-        <LeftPane currentTab="Notifications" />
-      </Hidden>
+      {smDown ? null : <LeftPane currentTab="Notifications" />}
       <div
         style={{
           flex: 2,
@@ -77,10 +89,8 @@ export default function Notifications(props) {
           }}
         >
           <div style={{ cursor: "pointer" }} onClick={scrollTop}>
-            <Hidden smUp>
-              <AppBar currentTab="Notifications" />
-            </Hidden>
-            <Hidden xsDown>
+            {smUp ? null : <AppBar currentTab="Notifications" />}
+            {smDown ? null : (
               <div
                 style={{
                   height: "81px",
@@ -100,12 +110,11 @@ export default function Notifications(props) {
                     textDecoration: "none",
                     textTransform: "none"
                   }}
-                  onClick={() => history.push("/")}
                 >
                   Notifications
                 </Button>
               </div>
-            </Hidden>
+            )}
           </div>
 
           {!loading ? (
@@ -159,9 +168,7 @@ export default function Notifications(props) {
           )}
         </div>
       </div>
-      <Hidden mdDown>
-        <RightPane />
-      </Hidden>
+      {mdDown ? null : <RightPane />}
     </div>
   );
 }

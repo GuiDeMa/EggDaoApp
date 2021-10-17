@@ -8,16 +8,13 @@ import Auth from "./page/Auth";
 import Notifications from "./page/Notifications";
 import Compose from "./page/Compose";
 import Home from "./page/Home";
-import Ideas from "./page/Ideas";
-import Jobs from "./page/Jobs";
-import Features from "./page/Features";
-import Projects from "./page/Projects";
 import Profile from "./page/Profile";
 import Search from "./page/Search";
 import Detail from "./page/Detail";
 import Welcome from "./page/Welcome";
 import Settings from "./page/Settings";
 import "./style.css";
+import Features from "./page/Features";
 
 export default function App() {
   const theme = createTheme({
@@ -48,10 +45,7 @@ export default function App() {
           <Route exact path="/welcome" component={Welcome} />
           <Route exact path="/notifications" component={Notifications} />
           <Route exact path="/" component={Home} />
-          <Route exact path="/methods" component={Ideas} />
-          <Route exact path="/projects" component={Projects} />
           <Route exact path="/features" component={Features} />
-          <Route exact path="/jobs" component={Jobs} />
           <Route exact path="/settings" component={Settings} />
           <Route
             exact

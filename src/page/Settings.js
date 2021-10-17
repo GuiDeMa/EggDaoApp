@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Hidden, Switch, Typography } from "@mui/material";
+import {
+  Button,
+  Hidden,
+  Switch,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from "@mui/material";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
@@ -10,6 +17,7 @@ export default function Settings(props) {
     localStorage.isOneClick === "true" ? true : false || false
   );
   const history = useHistory();
+  const theme = useTheme();
 
   const handleChange1Click = (e) => {
     e.preventDefault();
@@ -25,6 +33,10 @@ export default function Settings(props) {
     history.push("/auth");
   };
 
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div
       style={{
@@ -33,7 +45,7 @@ export default function Settings(props) {
       }}
     >
       <Hidden smDown>
-        <LeftPane currentTab="Settings" />
+        {smDown ? null : <LeftPane currentTab="Settings" />}
       </Hidden>
       <div
         style={{
@@ -51,10 +63,33 @@ export default function Settings(props) {
           }}
         >
           <div style={{ cursor: "pointer" }}>
-            <Hidden smUp>
-              <AppBar currentTab="Settings" />
-            </Hidden>
+            {smUp ? null : <AppBar currentTab="Settings" />}
           </div>
+          {smDown ? null : (
+            <div
+              style={{
+                height: "81px",
+                position: "sticky",
+                display: "flex",
+                justifyContent: "center",
+                padding: "16px",
+                borderBottom: "1px solid #F2F2F2"
+              }}
+            >
+              <Button
+                style={{
+                  color: "#2F2F2F",
+                  margin: 0,
+                  fontSize: "22px",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  textTransform: "none"
+                }}
+              >
+                Settings
+              </Button>
+            </div>
+          )}
           <div
             style={{
               height: "63px",
@@ -139,9 +174,7 @@ export default function Settings(props) {
           </div>
         </div>
       </div>
-      <Hidden mdDown>
-        <RightPane />
-      </Hidden>
+      {mdDown ? null : <RightPane />}
     </div>
   );
 }

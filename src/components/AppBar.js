@@ -181,37 +181,8 @@ export default function AppBar(props) {
                     </Typography>
                   </ListItemText>
                 </ListItem>
-                <ListItem button component={Link} to="/methods">
-                  <ListItemIcon>
-                    <EmojiObjectsOutlinedIcon color={isSelected("Ideas")} />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Typography variant="body1" color={isSelected("Ideas")}>
-                      Ideas
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-                <ListItem button component={Link} to="/projects">
-                  <ListItemIcon>
-                    <StarsOutlinedIcon color={isSelected("Projects")} />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Typography variant="body1" color={isSelected("Projects")}>
-                      Projects
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-                <ListItem button component={Link} to="/jobs">
-                  <ListItemIcon>
-                    <HourglassEmptyIcon color={isSelected("Jobs")} />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Typography variant="body1" color={isSelected("Jobs")}>
-                      Jobs
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-                {/* <ListItem button component={Link} to="/features">
+
+                <ListItem button component={Link} to="/features">
                   <ListItemIcon>
                     <LockOutlinedIcon color={isSelected("Features")} />
                   </ListItemIcon>
@@ -220,7 +191,7 @@ export default function AppBar(props) {
                       Features
                     </Typography>
                   </ListItemText>
-                </ListItem> */}
+                </ListItem>
                 <ListItem button component={Link} to="/settings">
                   <ListItemIcon>
                     <SettingsIcon color={isSelected("Settings")} />

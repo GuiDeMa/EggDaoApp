@@ -71,7 +71,7 @@ export default function Post(props) {
                   verticalAlign: "top"
                 }}
               >
-                <IconButton tabIndex="0" type="button">
+                <IconButton tabIndex={0} type="button">
                   <a
                     href={`https://twetch.app/t/${postTx}`}
                     target="_blank"

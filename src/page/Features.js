@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Grid, Hidden, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Hidden,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from "@mui/material";
 import { use100vh } from "react-div-100vh";
 
 import AppBar from "../components/AppBar";
@@ -10,8 +17,13 @@ import RightPane from "../components/RightPane";
 
 export default function Features(props) {
   const history = useHistory();
+  const theme = useTheme();
   const height = use100vh();
   const containerHeight = height ? height : "100vh";
+
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <div
@@ -20,9 +32,7 @@ export default function Features(props) {
         justifyContent: "center"
       }}
     >
-      <Hidden smDown>
-        <LeftPane currentTab="Features" />
-      </Hidden>
+      {smDown ? null : <LeftPane currentTab="Features" />}
       <div
         style={{
           flex: 2,
@@ -39,10 +49,8 @@ export default function Features(props) {
           }}
         >
           <div style={{ cursor: "pointer" }}>
-            <Hidden smUp>
-              <AppBar currentTab="Features" />
-            </Hidden>
-            <Hidden xsDown>
+            {smUp ? null : <AppBar currentTab="Features" />}
+            {smDown ? null : (
               <div
                 style={{
                   height: "81px",
@@ -62,12 +70,11 @@ export default function Features(props) {
                     textDecoration: "none",
                     textTransform: "none"
                   }}
-                  onClick={() => history.push("/")}
                 >
                   Features
                 </Button>
               </div>
-            </Hidden>
+            )}
           </div>
           <Grid
             container
@@ -114,9 +121,7 @@ export default function Features(props) {
           </Grid>
         </div>
       </div>
-      <Hidden mdDown>
-        <RightPane />
-      </Hidden>
+      {mdDown ? null : <RightPane />}
     </div>
   );
 }

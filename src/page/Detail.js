@@ -6,7 +6,9 @@ import {
   Hidden,
   IconButton,
   MenuItem,
-  Select
+  Select,
+  useMediaQuery,
+  useTheme
 } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { use100vh } from "react-div-100vh";
@@ -36,6 +38,7 @@ export default function Detail(props) {
   const [parents, setParents] = useState([]);
   const [boosts, setBoosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
   const history = useHistory();
   const height = use100vh();
   const containerHeight = height ? height : "100vh";
@@ -67,6 +70,10 @@ export default function Detail(props) {
     return diff;
   };
 
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div>
       <div
@@ -75,9 +82,7 @@ export default function Detail(props) {
           justifyContent: "center"
         }}
       >
-        <Hidden smDown>
-          <LeftPane />
-        </Hidden>
+        {smDown ? null : <LeftPane />}
         <div
           className="borders"
           style={{
@@ -87,10 +92,8 @@ export default function Detail(props) {
           }}
         >
           <div style={{ cursor: "pointer" }}>
-            <Hidden smUp>
-              <AppBar />
-            </Hidden>
-            <Hidden xsDown>
+            {smUp ? null : <AppBar />}
+            {smDown ? null : (
               <div
                 style={{
                   height: "81px",
@@ -119,7 +122,7 @@ export default function Detail(props) {
                 </div>
                 <div></div>
               </div>
-            </Hidden>
+            )}
           </div>
           <div
             style={{
@@ -183,9 +186,7 @@ export default function Detail(props) {
             )}
           </div>
         </div>
-        <Hidden mdDown>
-          <RightPane />
-        </Hidden>
+        {mdDown ? null : <RightPane />}
       </div>
       <div></div>
     </div>

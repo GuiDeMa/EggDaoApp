@@ -9,7 +9,9 @@ import {
   MenuItem,
   Select,
   TextField,
-  Typography
+  Typography,
+  useMediaQuery,
+  useTheme
 } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
@@ -48,6 +50,7 @@ export default function Search(props) {
   const [totalCount, setTotalCount] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
   const history = useHistory();
   const height = use100vh();
   const containerHeight = height ? height : "100vh";
@@ -125,6 +128,10 @@ export default function Search(props) {
     }, 1000);
   };
 
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div
       style={{
@@ -132,9 +139,7 @@ export default function Search(props) {
         justifyContent: "center"
       }}
     >
-      <Hidden smDown>
-        <LeftPane />
-      </Hidden>
+      {smDown ? null : <LeftPane />}
       <div
         style={{
           flex: 2,
@@ -279,9 +284,7 @@ export default function Search(props) {
           )}
         </div>
       </div>
-      <Hidden mdDown>
-        <RightPane />
-      </Hidden>
+      {mdDown ? null : <RightPane />}
       <div
         style={{
           width: "100%",
@@ -290,9 +293,7 @@ export default function Search(props) {
           position: "fixed"
         }}
       >
-        <Hidden smUp>
-          <StickyButton />
-        </Hidden>
+        {smUp ? null : <StickyButton />}
       </div>
     </div>
   );

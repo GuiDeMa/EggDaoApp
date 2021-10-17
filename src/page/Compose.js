@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IconButton, Hidden } from "@mui/material";
+import { IconButton, useMediaQuery, useTheme } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { FetchPostDetail } from "../api/TwetchGraph";
 import LeftPane from "../components/LeftPane";
@@ -13,6 +13,7 @@ export default function Compose(props) {
   const txId = props.match.params.id;
   const [postData, setPostData] = useState([]);
   //const [boosts, setBoosts] = useState([]);
+  const theme = useTheme();
   const history = useHistory();
 
   useEffect(() => {
@@ -34,6 +35,10 @@ export default function Compose(props) {
     return diff;
   }; */
 
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div
       style={{
@@ -41,9 +46,7 @@ export default function Compose(props) {
         justifyContent: "center"
       }}
     >
-      <Hidden smDown>
-        <LeftPane />
-      </Hidden>
+      {smDown ? null : <LeftPane />}
       <div
         style={{
           flex: 2,
@@ -60,10 +63,8 @@ export default function Compose(props) {
           }}
         >
           <div style={{ cursor: "pointer" }}>
-            <Hidden smUp>
-              <AppBar />
-            </Hidden>
-            <Hidden xsDown>
+            {smUp ? null : <AppBar />}
+            {smDown ? null : (
               <div
                 style={{
                   height: "81px",
@@ -94,16 +95,14 @@ export default function Compose(props) {
                 </div>
                 <div></div>
               </div>
-            </Hidden>
+            )}
           </div>
           {txId &&
             postData.map((data) => <Post {...data} key={txId} tx={txId} />)}
           <Composer />
         </div>
       </div>
-      <Hidden mdDown>
-        <RightPane />
-      </Hidden>
+      {mdDown ? null : <RightPane />}
       <div
         style={{
           width: "100%",

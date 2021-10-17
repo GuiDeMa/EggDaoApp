@@ -4,13 +4,12 @@ import {
   Button,
   CircularProgress,
   FormControl,
-  Hidden,
   MenuItem,
   Select
 } from "@mui/material";
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import { useTheme, useMediaQuery } from "@mui/material";
 import { FetchHome } from "../api/TwetchGraph";
 import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
@@ -39,6 +38,7 @@ export default function Home(props) {
   const [postList, setPostList] = useState([]);
   const [offset, setOffset] = useState(0);
   //const [boosts, setBoosts] = useState([]);
+  const theme = useTheme();
   const [totalCount, setTotalCount] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -90,6 +90,9 @@ export default function Home(props) {
   const scrollTop = (e) => {
     document.getElementById("scrollable").scrollTo(0, 0);
   };
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <div
@@ -98,9 +101,7 @@ export default function Home(props) {
         justifyContent: "center"
       }}
     >
-      <Hidden smDown>
-        <LeftPane currentTab="Home" />
-      </Hidden>
+      {smDown ? null : <LeftPane currentTab="Home" />}
       <div
         style={{
           flex: 2,
@@ -117,10 +118,8 @@ export default function Home(props) {
           }}
         >
           <div style={{ cursor: "pointer" }} onClick={scrollTop}>
-            <Hidden smUp>
-              <AppBar currentTab="Home" />
-            </Hidden>
-            <Hidden xsDown>
+            {smUp ? null : <AppBar currentTab="Home" />}
+            {!smUp ? null : (
               <div
                 style={{
                   height: "81px",
@@ -140,12 +139,11 @@ export default function Home(props) {
                     textDecoration: "none",
                     textTransform: "none"
                   }}
-                  onClick={() => history.push("/")}
                 >
                   Home
                 </Button>
               </div>
-            </Hidden>
+            )}
             <FormControl
               style={{
                 width: "100%",
@@ -175,16 +173,18 @@ export default function Home(props) {
                 overflowY: "auto"
               }}
             >
-              <Hidden xsDown>
-                <Composer />
-                <div
-                  style={{
-                    width: "100%",
-                    height: "8px",
-                    backgroundColor: "#F2F2F2"
-                  }}
-                />
-              </Hidden>
+              {!smUp ? null : (
+                <div>
+                  <Composer />
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "8px",
+                      backgroundColor: "#F2F2F2"
+                    }}
+                  />
+                </div>
+              )}
               <InfiniteScroll
                 dataLength={postList.length}
                 next={fetchMore}
@@ -229,9 +229,7 @@ export default function Home(props) {
           )}
         </div>
       </div>
-      <Hidden mdDown>
-        <RightPane />
-      </Hidden>
+      {mdDown ? null : <RightPane />}
       <div
         style={{
           width: "100%",
@@ -240,9 +238,7 @@ export default function Home(props) {
           position: "fixed"
         }}
       >
-        <Hidden smUp>
-          <StickyButton />
-        </Hidden>
+        {smUp ? null : <StickyButton />}
       </div>
     </div>
   );

@@ -7,7 +7,9 @@ import {
   FormControl,
   Hidden,
   MenuItem,
-  Select
+  Select,
+  useMediaQuery,
+  useTheme
 } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { use100vh } from "react-div-100vh";
@@ -40,6 +42,7 @@ export default function Profile(props) {
   const [boosts, setBoosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const theme = useTheme();
   const history = useHistory();
   const height = use100vh();
   const containerHeight = height ? height : "100vh";
@@ -86,17 +89,18 @@ export default function Profile(props) {
     document.getElementById("scrollable").scrollTo(0, 0);
   };
 
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
         justifyContent: "center"
       }}
     >
-      <Hidden smDown>
-        <LeftPane />
-      </Hidden>
+      {smDown ? null : <LeftPane />}
       <div
         style={{
           flex: 2,
@@ -113,12 +117,9 @@ export default function Profile(props) {
             maxWidth: "600px"
           }}
         >
-          {" "}
           <div style={{ cursor: "pointer" }} onClick={scrollTop}>
-            <Hidden smUp>
-              <AppBar />
-            </Hidden>
-            <Hidden xsDown>
+            {smUp ? null : <AppBar />}
+            {smDown ? null : (
               <div
                 style={{
                   height: "81px",
@@ -144,7 +145,7 @@ export default function Profile(props) {
                 </div>
                 <div></div>
               </div>
-            </Hidden>
+            )}
           </div>
           {!loading ? (
             <div
@@ -276,9 +277,7 @@ export default function Profile(props) {
           )}
         </div>
       </div>
-      <Hidden mdDown>
-        <RightPane />
-      </Hidden>
+      {mdDown ? null : <RightPane />}
       <div
         style={{
           width: "100%",
@@ -287,9 +286,7 @@ export default function Profile(props) {
           position: "fixed"
         }}
       >
-        <Hidden smUp>
-          <StickyButton />
-        </Hidden>
+        {smUp ? null : <StickyButton />}
       </div>
     </div>
   );

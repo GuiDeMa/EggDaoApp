@@ -1,8 +1,12 @@
 import React from "react";
-import { Button, Grid, Hidden } from "@mui/material";
+import { Button, Grid, Hidden, useMediaQuery, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
+import TwetchEgg from "../resources/twetchEgg.png";
 
 export default function Welcome() {
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <div
       style={{
@@ -14,11 +18,11 @@ export default function Welcome() {
       <div>
         <div
           style={{
-            backgroundColor: "#e7ab3e",
+            backgroundColor: theme.palette.primary.main,
             display: "flex",
             flexDirection: "column",
             height: "100vh",
-            backgroundImage: "url('./icon.png')",
+            backgroundImage: `url(${TwetchEgg})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
@@ -36,11 +40,11 @@ export default function Welcome() {
                 <span role="img" aria-label="the egg way">
                   (🥚,🐣)
                 </span>
-                <Hidden smDown>
+                {smDown ? null : (
                   <span style={{ fontSize: "18px", marginLeft: "3px" }}>
                     EggDao
                   </span>
-                </Hidden>
+                )}
               </div>
             </div>
             <div style={{ display: "flex", height: "100%" }}>
@@ -54,14 +58,12 @@ export default function Welcome() {
                   padding: "12px",
                   borderRadius: "24px",
                   maxWidth: "333px",
-                  maxHeight: "333px"
+                  maxHeight: "369px"
                 }}
               >
-                <h1 style={{ color: "#000000" }}>
-                  Upgrade your Twetch community
-                </h1>
+                <h1 style={{ color: "#000000" }}>Upgrade your community</h1>
                 <p>
-                  Community tools to grow your wealth - twetch and earn
+                  Community tools to grow your wealth - Twetch and earn
                   compounding interest
                 </p>
                 <Grid
@@ -107,55 +109,8 @@ export default function Welcome() {
               <div style={{ flexGrow: 1 }} />
             </div>
           </div>
-          <Hidden smDown>
-            <Grid
-              container
-              style={{
-                backgroundColor: "#7d5000",
-                height: "99px",
-                textAlign: "center"
-              }}
-            >
-              <Grid item xs={12} sm={4}>
-                <h4 style={{ color: "#e7ab3e" }}>Total Eggs Stacked</h4>
-                <h3 style={{ color: "#e7ab3e" }}>3/2066</h3>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <h4 style={{ color: "#e7ab3e" }}>Community Ventures</h4>
-                <h3 style={{ color: "#e7ab3e" }}>33</h3>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <h4 style={{ color: "#e7ab3e" }}>Current APY%</h4>
-                <h3 style={{ color: "#e7ab3e" }}>333%</h3>
-              </Grid>
-            </Grid>
-          </Hidden>
         </div>
       </div>
-      <Hidden smUp>
-        <Grid
-          container
-          style={{
-            marginTop: "-99px",
-            height: "100%",
-            backgroundColor: "#7d5000",
-            textAlign: "center"
-          }}
-        >
-          <Grid style={{ height: "99px" }} item xs={12} sm={4}>
-            <h4 style={{ color: "#e7ab3e" }}>Total Eggs Stacked</h4>
-            <h3 style={{ color: "#e7ab3e" }}>3/2066</h3>
-          </Grid>
-          <Grid style={{ height: "99px" }} item xs={12} sm={4}>
-            <h4 style={{ color: "#e7ab3e" }}>Community Ventures</h4>
-            <h3 style={{ color: "#e7ab3e" }}>33</h3>
-          </Grid>
-          <Grid style={{ height: "99px" }} item xs={12} sm={4}>
-            <h4 style={{ color: "#e7ab3e" }}>Current APY%</h4>
-            <h3 style={{ color: "#e7ab3e" }}>333%</h3>
-          </Grid>
-        </Grid>
-      </Hidden>
     </div>
   );
 }
