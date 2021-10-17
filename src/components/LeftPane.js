@@ -8,19 +8,18 @@ import {
   ListItemIcon,
   ListItemText,
   Typography
-} from "@material-ui/core";
-import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
-import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
-import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import EmojiObjectsOutlinedIcon from "@material-ui/icons/EmojiObjectsOutlined";
-import StarsOutlinedIcon from "@material-ui/icons/StarsOutlined";
-import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
-import SettingsIcon from "@material-ui/icons/Settings";
+} from "@mui/material";
+import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import EmojiObjectsOutlinedIcon from "@mui/icons-material/EmojiObjectsOutlined";
+import StarsOutlinedIcon from "@mui/icons-material/StarsOutlined";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import Notifications from "./Notifications";
 import Messages from "./Messages";
-import { LinkOffSharp } from "@material-ui/icons";
 
 export default function LeftPane(props) {
   const selected = props.currentTab;

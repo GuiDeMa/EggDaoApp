@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { Avatar, Badge, Grid, IconButton, Typography } from "@material-ui/core";
+import { Avatar, Badge, Grid, IconButton, Typography } from "@mui/material";
 import Timestamp from "../utils/Timestamp";
 
 import BranchBadge from "../resources/BranchBadge";

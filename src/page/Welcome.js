@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid, Hidden } from "@material-ui/core";
+import { Button, Grid, Hidden } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export default function Welcome() {

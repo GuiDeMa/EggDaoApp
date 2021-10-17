@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Hidden, Switch, Typography } from "@material-ui/core";
+import { Hidden, Switch, Typography } from "@mui/material";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";

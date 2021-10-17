@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Grid, Hidden, Typography } from "@material-ui/core";
+import { Button, Grid, Hidden, Typography } from "@mui/material";
 import { use100vh } from "react-div-100vh";
 
 import AppBar from "../components/AppBar";

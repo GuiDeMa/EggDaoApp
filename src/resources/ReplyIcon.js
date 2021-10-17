@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
-import { SvgIcon, IconButton, Typography } from "@material-ui/core";
-import { createTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
+import { SvgIcon, IconButton, Typography } from "@mui/material";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/styles";
 import { useState } from "react";
 
 const theme = createTheme({

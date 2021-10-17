@@ -1,8 +1,7 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { CssBaseline } from "@material-ui/core";
-import { createTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
+import { CssBaseline } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import App from "./App";
 

@@ -5,8 +5,8 @@ import {
   OutlinedInput,
   InputAdornment,
   Typography
-} from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function SearchBox() {
   const [input, setInput] = useState("");

@@ -1,12 +1,6 @@
-import {
-  Button,
-  Drawer,
-  SvgIcon,
-  IconButton,
-  Typography
-} from "@material-ui/core";
-import { createTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
+import { Button, Drawer, SvgIcon, IconButton, Typography } from "@mui/material";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/styles";
 import { useState, useEffect } from "react";
 
 const Twetch = require("@twetch/sdk");

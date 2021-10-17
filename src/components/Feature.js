@@ -6,9 +6,9 @@ import {
   FormControl,
   InputAdornment,
   OutlinedInput
-} from "@material-ui/core";
-import LockIcon from "@material-ui/icons/Lock";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
+} from "@mui/material";
+import LockIcon from "@mui/icons-material/Lock";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 export default function Feature(props) {
   const [amount, setAmount] = useState(0.1);
   const [progress, setProgress] = useState(2.18);

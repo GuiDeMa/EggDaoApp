@@ -7,7 +7,7 @@ import {
   Hidden,
   MenuItem,
   Select
-} from "@material-ui/core";
+} from "@mui/material";
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 

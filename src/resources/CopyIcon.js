@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { IconButton } from "@material-ui/core";
-import Snackbar from "@material-ui/core/Snackbar";
+import { IconButton, Snackbar } from "@mui/material";
 import { Alert } from "@mui/material";
-import FilterNoneIcon from "@material-ui/icons/FilterNone";
+import FilterNoneIcon from "@mui/icons-material/FilterNone";
 
 export default function CopyIcon(props) {
-  const url = `https://zeroschool.org/t/${props.tx}`;
+  const url = `https://eggdao.xyz/t/${props.tx}`; //config
   const [copied, setCopied] = useState(false);
 
   const handleClick = (e) => {

@@ -1,7 +1,7 @@
-import { IconButton, Typography } from "@material-ui/core";
-import { createTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
+import { IconButton, Typography } from "@mui/material";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/styles";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { getPenny } from "../api/TwetchActions";
 
 const theme = createTheme({
@@ -23,7 +23,7 @@ export default function BoostIcon(props) {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <IconButton onClick={handleClick} color="primary">
+        <IconButton disabled onClick={handleClick} color="primary">
           <StarBorderIcon style={{ color: "#696969" }} />
         </IconButton>
         <Typography className="hoverRed" component="span" variant="body1">
@@ -36,7 +36,7 @@ export default function BoostIcon(props) {
 
 async function boostContent(txid) {
   let penny = await getPenny();
-
+  return;
   window.boostPublish.open({
     content: txid,
     tag: "$zeroschool",

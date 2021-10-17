@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, OutlinedInput, Typography, useTheme } from "@material-ui/core";
+import { Button, OutlinedInput, Typography, useTheme } from "@mui/material";
 
 import { userData } from "../api/TwetchGraph";
 

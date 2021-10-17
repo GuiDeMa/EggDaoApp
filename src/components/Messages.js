@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Badge } from "@material-ui/core";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import { makeStyles } from "@mui/styles";
+import { Badge } from "@mui/material";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 import { twquery } from "../api/TwetchGraph";
 

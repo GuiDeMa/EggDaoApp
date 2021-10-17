@@ -8,7 +8,7 @@ import {
   Hidden,
   MenuItem,
   Select
-} from "@material-ui/core";
+} from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { use100vh } from "react-div-100vh";
 import { FetchUserData, FetchUserPosts } from "../api/TwetchGraph";

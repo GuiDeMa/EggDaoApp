@@ -7,8 +7,8 @@ import {
   IconButton,
   MenuItem,
   Select
-} from "@material-ui/core";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+} from "@mui/material";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { use100vh } from "react-div-100vh";
 import { FetchPostDetail, FetchPostReplies } from "../api/TwetchGraph";
 import LeftPane from "../components/LeftPane";

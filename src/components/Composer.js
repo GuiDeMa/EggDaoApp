@@ -8,7 +8,7 @@ import {
   InputAdornment,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import { Alert } from "@mui/material";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { twquery } from "../api/TwetchGraph";

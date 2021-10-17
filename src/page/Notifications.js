@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, CircularProgress, Hidden } from "@material-ui/core";
+import { Button, CircularProgress, Hidden } from "@mui/material";
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
