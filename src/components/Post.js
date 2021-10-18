@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory, Link } from "react-router-dom";
-import { Avatar, Grid, IconButton, Typography } from "@mui/material";
+import { Avatar, Grid, IconButton, Typography, useTheme } from "@mui/material";
 import LikeIcon from "../resources/LikeIcon";
 import ReplyIcon from "../resources/ReplyIcon";
 import BoostIcon from "../resources/BoostIcon";
@@ -13,6 +13,7 @@ export default function Post(props) {
   const postTx = props.tx;
   const postData = props.node;
   const diff = props.boostDiff;
+  const theme = useTheme();
   const history = useHistory();
   const timestamp = new Timestamp(postData.createdAt);
 
@@ -29,7 +30,7 @@ export default function Post(props) {
             display: "block",
             padding: "16px",
             position: "relative",
-            borderBottom: "1px solid #f2f2f2",
+            borderBottom: `1px solid ${theme.palette.divider}`,
             textDecoration: "none"
           }}
           id={`post-${postData.transaction}`}
@@ -98,7 +99,6 @@ export default function Post(props) {
             <div
               style={{
                 width: "calc(100% - 58px)",
-
                 display: "inline-block",
                 verticalAlign: "top"
               }}
@@ -110,29 +110,33 @@ export default function Post(props) {
                   verticalAlign: "top"
                 }}
               >
-                <Link
-                  to={`/u/${postData.userId}`}
-                  onClick={(e) => e.stopPropagation()}
+                <Typography
+                  variant="body1"
+                  sx={{
+                    display: "inline-block",
+                    overflow: "hidden",
+                    fontSize: "16px",
+                    maxWidth: "calc(100% - 64px)",
+                    fontWeight: "bold",
+                    lineHeight: "24px",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    verticalAlign: "top",
+                    textDecoration: "none"
+                  }}
                 >
-                  <div
+                  <Link
+                    to={`/u/${postData.userId}`}
+                    onClick={(e) => e.stopPropagation()}
                     style={{
-                      color: "#000000",
-                      cursor: "pointer",
-                      display: "inline-block",
-                      overflow: "hidden",
-                      fontSize: "16px",
-                      maxWidth: "calc(100% - 64px)",
-                      fontWeight: "bold",
-                      lineHeight: "24px",
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      verticalAlign: "top",
+                      color: theme.palette.text.primary,
                       textDecoration: "none"
                     }}
                   >
                     {postData.userByUserId.name}
-                  </div>
-                </Link>
+                  </Link>
+                </Typography>
+
                 <Typography
                   variant="body1"
                   style={{

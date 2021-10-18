@@ -28,7 +28,6 @@ export default function Feature(props) {
         <Typography
           variant="body1"
           style={{
-            color: "#000000",
             fontSize: "20px",
             lineHeight: "24px",
             fontWeight: "bold"
@@ -40,7 +39,6 @@ export default function Feature(props) {
         {completed || progress >= 100 ? (
           <LockOpenIcon
             style={{
-              color: "#000000",
               width: "24px",
               height: "24px"
             }}
@@ -48,7 +46,6 @@ export default function Feature(props) {
         ) : (
           <LockIcon
             style={{
-              color: "#000000",
               width: "24px",
               height: "24px"
             }}
@@ -58,7 +55,6 @@ export default function Feature(props) {
       <Typography
         variant="body1"
         style={{
-          color: "#000000",
           fontSize: "16px",
           lineHeight: "20px"
         }}
@@ -69,7 +65,6 @@ export default function Feature(props) {
         <Typography
           variant="body1"
           style={{
-            color: "#000000",
             fontSize: "16px",
             lineHeight: "20px"
           }}
@@ -80,7 +75,6 @@ export default function Feature(props) {
         <Typography
           variant="body1"
           style={{
-            color: "#000000",
             fontSize: "16px",
             lineHeight: "20px"
           }}
@@ -99,18 +93,14 @@ export default function Feature(props) {
           margin="dense"
           type="submit"
           style={{
-            color: "#000000",
-            borderRadius: "6px",
-            backgroundColor: "#F5F5F5"
+            borderRadius: "6px"
           }}
         >
           <OutlinedInput
             type="number"
             min={0}
             style={{
-              color: "#000000",
-              borderRadius: "6px",
-              backgroundColor: "#F5F5F5"
+              borderRadius: "6px"
             }}
             id="standard-search"
             variant="outlined"

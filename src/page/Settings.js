@@ -13,11 +13,23 @@ import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
 
 export default function Settings(props) {
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.colorMode === "dark" ? true : false || false
+  );
   const [isOneClick, setIsOneClick] = useState(
     localStorage.isOneClick === "true" ? true : false || false
   );
+
   const history = useHistory();
   const theme = useTheme();
+
+  const handleChangeDarkMode = (e) => {
+    e.preventDefault();
+    setIsDarkMode(e.target.checked);
+    localStorage.setItem("colorMode", !isDarkMode ? "dark" : "light");
+    window.location.reload();
+    console.log(localStorage.colorMode);
+  };
 
   const handleChange1Click = (e) => {
     e.preventDefault();
@@ -59,7 +71,8 @@ export default function Settings(props) {
           style={{
             flex: 2,
             width: "100%",
-            maxWidth: "600px"
+            maxWidth: "600px",
+            height: "100vh"
           }}
         >
           <div style={{ cursor: "pointer" }}>
@@ -73,20 +86,26 @@ export default function Settings(props) {
                 display: "flex",
                 justifyContent: "center",
                 padding: "16px",
-                borderBottom: "1px solid #F2F2F2"
+                borderBottom: `1px solid ${theme.palette.divider}`
               }}
             >
               <Button
                 style={{
-                  color: "#2F2F2F",
                   margin: 0,
-                  fontSize: "22px",
-                  fontWeight: "bold",
                   textDecoration: "none",
                   textTransform: "none"
                 }}
               >
-                Settings
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: theme.palette.text.primary,
+                    fontSize: "22px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Settings
+                </Typography>
               </Button>
             </div>
           )}
@@ -95,12 +114,11 @@ export default function Settings(props) {
               height: "63px",
               display: "flex",
               padding: "20px",
-              borderBottom: "1px solid #F2F2F2"
+              borderBottom: `1px solid ${theme.palette.divider}`
             }}
           >
             <Typography
               style={{
-                color: "#000000",
                 display: "inline-block",
                 fontSize: "17px",
                 fontWeight: "bold",
@@ -112,7 +130,8 @@ export default function Settings(props) {
             </Typography>
             <div style={{ flexGrow: 1 }} />
             <Switch
-              disabled
+              checked={isDarkMode}
+              onChange={handleChangeDarkMode}
               color="primary"
               style={{
                 float: "right"
@@ -124,12 +143,11 @@ export default function Settings(props) {
               height: "63px",
               display: "flex",
               padding: "20px",
-              borderBottom: "1px solid #F2F2F2"
+              borderBottom: `1px solid ${theme.palette.divider}`
             }}
           >
             <Typography
               style={{
-                color: "#000000",
                 display: "inline-block",
                 fontSize: "17px",
                 fontWeight: "bold",
@@ -156,7 +174,7 @@ export default function Settings(props) {
               display: "flex",
               justifyContent: "center",
               padding: "20px",
-              borderBottom: "1px solid #F2F2F2"
+              borderBottom: `1px solid ${theme.palette.divider}`
             }}
           >
             <div

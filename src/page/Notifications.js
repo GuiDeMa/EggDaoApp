@@ -5,7 +5,8 @@ import {
   CircularProgress,
   Hidden,
   useMediaQuery,
-  useTheme
+  useTheme,
+  Typography
 } from "@mui/material";
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -103,15 +104,21 @@ export default function Notifications(props) {
               >
                 <Button
                   style={{
-                    color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "22px",
-                    fontWeight: "bold",
                     textDecoration: "none",
                     textTransform: "none"
                   }}
                 >
-                  Notifications
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: theme.palette.text.primary,
+                      fontSize: "22px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Notifications
+                  </Typography>
                 </Button>
               </div>
             )}

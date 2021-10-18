@@ -7,7 +7,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Typography
+  Typography,
+  useTheme
 } from "@mui/material";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -20,10 +21,11 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 import Notifications from "./Notifications";
 import Messages from "./Messages";
+import { BorderRight } from "@mui/icons-material";
 
 export default function LeftPane(props) {
   const selected = props.currentTab;
-
+  const theme = useTheme();
   const isSelected = (tab) => {
     if (tab === selected) {
       return "primary";
@@ -44,7 +46,8 @@ export default function LeftPane(props) {
         padding: "20px 0px 25px 45px",
         zIndex: 1,
         overflowX: "hidden",
-        overflowY: "auto"
+        overflowY: "auto",
+        borderRight: `1px solid ${theme.palette.divider}`
       }}
     >
       <div>
@@ -106,7 +109,7 @@ export default function LeftPane(props) {
                     <div>
                       <Typography
                         style={{
-                          color: "#000000",
+                          color: theme.palette.text.primary,
                           fontWeight: "bold"
                         }}
                         variant="body1"

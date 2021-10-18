@@ -56,8 +56,6 @@ export default function Search(props) {
   const containerHeight = height ? height : "100vh";
 
   useEffect(() => {
-    console.log(search.split("=")[1]);
-    console.log(filter, searchTerm);
     if (filter === undefined) {
       setFilter("");
       history.push({
@@ -170,21 +168,26 @@ export default function Search(props) {
               <IconButton onClick={() => history.goBack()}>
                 <KeyboardBackspaceIcon color="primary" />
               </IconButton>
-              <div
+              <Button
                 style={{
-                  color: "#2F2F2F",
                   margin: 0,
-                  fontSize: "22px",
-                  fontWeight: "bold",
                   textDecoration: "none",
-                  cursor: "pointer"
+                  textTransform: "none"
                 }}
               >
-                Search
-              </div>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: theme.palette.text.primary,
+                    fontSize: "22px",
+                    fontWeight: "bold"
+                  }}
+                >
+                  Search
+                </Typography>
+              </Button>
               <div>
                 <Button
-                  link
                   color="primary"
                   href="https://twetch.app/search/advanced"
                   target="_blank"
@@ -208,14 +211,12 @@ export default function Search(props) {
             </div>
             <FormControl
               style={{
-                width: "100%",
-                borderBottom: "1px solid #F2F2F2"
+                width: "100%"
               }}
             >
               <Select
                 variant="standard"
                 style={{ paddingLeft: "16px" }}
-                disableUnderline
                 value={OrderToIndex[orderBy]}
                 onChange={handleChangeOrder}
               >

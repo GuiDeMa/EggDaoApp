@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
+import { useTheme } from "@mui/material";
 import SearchBox from "./SearchBox";
 
 export default function RightPane() {
   const [input, setInput] = useState("");
-
+  const theme = useTheme();
   const handleChange = (e) => {
     setInput(e.target.value);
     console.log(e.target.value);
@@ -18,7 +18,8 @@ export default function RightPane() {
         height: "100vh",
         position: "sticky",
         maxWidth: "380px",
-        minWidth: "300px"
+        minWidth: "300px",
+        borderLeft: `1px solid ${theme.palette.divider}`
       }}
     >
       <div

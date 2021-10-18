@@ -63,15 +63,21 @@ export default function Features(props) {
               >
                 <Button
                   style={{
-                    color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "22px",
-                    fontWeight: "bold",
                     textDecoration: "none",
                     textTransform: "none"
                   }}
                 >
-                  Features
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: theme.palette.text.primary,
+                      fontSize: "22px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Features
+                  </Typography>
                 </Button>
               </div>
             )}
@@ -107,11 +113,10 @@ export default function Features(props) {
               <Typography
                 variant="body1"
                 style={{
-                  color: "#000000",
                   fontSize: "20px",
                   fontWeight: "bold",
                   lineHeight: "36px",
-                  borderBottom: "1px solid #000000",
+                  borderBottom: `1px solid ${theme.palette.divider}`,
                   marginBottom: "12px"
                 }}
               >

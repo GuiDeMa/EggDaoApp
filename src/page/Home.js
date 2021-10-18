@@ -5,7 +5,8 @@ import {
   CircularProgress,
   FormControl,
   MenuItem,
-  Select
+  Select,
+  Typography
 } from "@mui/material";
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -127,33 +128,37 @@ export default function Home(props) {
                   display: "flex",
                   justifyContent: "center",
                   padding: "16px",
-                  borderBottom: "1px solid #F2F2F2"
+                  borderBottom: `1px solid ${theme.palette.divider}`
                 }}
               >
                 <Button
                   style={{
-                    color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "22px",
-                    fontWeight: "bold",
                     textDecoration: "none",
                     textTransform: "none"
                   }}
                 >
-                  Home
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: theme.palette.text.primary,
+                      fontSize: "22px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Home
+                  </Typography>
                 </Button>
               </div>
             )}
             <FormControl
               style={{
-                width: "100%",
-                borderBottom: "1px solid #F2F2F2"
+                width: "100%"
               }}
             >
               <Select
                 variant="standard"
                 style={{ paddingLeft: "16px" }}
-                disableUnderline
                 value={OrderToIndex[orderBy]}
                 onChange={handleChangeOrder}
               >
@@ -180,7 +185,7 @@ export default function Home(props) {
                     style={{
                       width: "100%",
                       height: "8px",
-                      backgroundColor: "#F2F2F2"
+                      backgroundColor: theme.palette.divider
                     }}
                   />
                 </div>

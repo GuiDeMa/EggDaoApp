@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { Avatar, Badge, Grid, IconButton, Typography } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  Grid,
+  IconButton,
+  Typography,
+  useTheme
+} from "@mui/material";
 import Timestamp from "../utils/Timestamp";
 
 import BranchBadge from "../resources/BranchBadge";
@@ -21,6 +28,7 @@ const typeToBadge = {
 
 export default function NotifDetail(props) {
   const history = useHistory();
+  const theme = useTheme();
   const timestamp = new Timestamp(props.createdAt);
 
   const getDetail = (e) => {
@@ -95,7 +103,7 @@ export default function NotifDetail(props) {
             onClick={(e) => e.stopPropagation()}
           >
             <Badge
-              overlap="circle"
+              overlap="circular"
               anchorOrigin={{
                 vertical: "bottom",
                 horizontal: "right"
@@ -121,12 +129,14 @@ export default function NotifDetail(props) {
               }}
             >
               <Link
+                style={{ textDecoration: "none" }}
                 to={`/u/${props.actorUserId}`}
                 onClick={(e) => e.stopPropagation()}
               >
-                <div
-                  style={{
-                    color: "#000000",
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: theme.palette.text.primary,
                     cursor: "pointer",
                     display: "inline-block",
                     overflow: "hidden",
@@ -141,7 +151,7 @@ export default function NotifDetail(props) {
                   }}
                 >
                   {props.userByActorUserId.name}
-                </div>
+                </Typography>
               </Link>
               <Typography
                 variant="body1"

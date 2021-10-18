@@ -19,7 +19,7 @@ import Features from "./page/Features";
 export default function App() {
   const theme = createTheme({
     palette: {
-      mode: "light",
+      mode: localStorage.colorMode || "light",
       primary: {
         main: "#b17c01" //config
       },

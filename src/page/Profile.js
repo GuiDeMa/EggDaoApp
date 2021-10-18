@@ -9,7 +9,8 @@ import {
   MenuItem,
   Select,
   useMediaQuery,
-  useTheme
+  useTheme,
+  Typography
 } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { use100vh } from "react-div-100vh";
@@ -46,7 +47,6 @@ export default function Profile(props) {
   const history = useHistory();
   const height = use100vh();
   const containerHeight = height ? height : "100vh";
-
   const fetchMore = async () => {
     FetchUserPosts(userId, orderBy, offset).then((res) => {
       setTotalCount(res.allPosts.totalCount);
@@ -128,21 +128,27 @@ export default function Profile(props) {
                   justifyContent: "center",
                   alignItems: "center",
                   padding: "16px",
-                  borderBottom: "1px solid #F2F2F2"
+                  borderBottom: `1px solid ${theme.palette.divider}`
                 }}
               >
-                <div
+                <Button
                   style={{
-                    color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "22px",
-                    fontWeight: "bold",
                     textDecoration: "none",
-                    cursor: "pointer"
+                    textTransform: "none"
                   }}
                 >
-                  {userData.name && `${userData.name}'s`} Profile
-                </div>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: theme.palette.text.primary,
+                      fontSize: "22px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    {userData.name && `${userData.name}'s`} Profile
+                  </Typography>
+                </Button>
                 <div></div>
               </div>
             )}
@@ -179,11 +185,10 @@ export default function Profile(props) {
               >
                 <div
                   style={{
-                    color: "#000000",
+                    color: theme.palette.text.primary,
                     display: "inline-block",
                     overflow: "hidden",
                     fontSize: "16px",
-                    maxWidth: "calc(100% - 64px)",
                     fontWeight: "bold",
                     lineHeight: "24px",
                     whiteSpace: "nowrap",
@@ -209,19 +214,16 @@ export default function Profile(props) {
                 </a>
               </div>
               <FormControl
-                style={{
+                sx={{
                   width: "100%",
-                  background: "#fafafa",
-                  borderBottom: "1px solid #F2F2F2",
                   top: "0px",
                   position: "sticky",
                   zIndex: 1002
                 }}
               >
                 <Select
-                  style={{ marginLeft: "16px" }}
+                  style={{ paddingLeft: "16px" }}
                   variant="standard"
-                  disableUnderline
                   value={OrderToIndex[orderBy]}
                   onChange={handleChangeOrder}
                 >

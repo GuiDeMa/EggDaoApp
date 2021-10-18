@@ -10,7 +10,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Typography
+  Typography,
+  useTheme
 } from "@mui/material";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -28,6 +29,7 @@ import Notifications from "./Notifications";
 export default function AppBar(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { window } = props;
+  const theme = useTheme();
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -63,7 +65,7 @@ export default function AppBar(props) {
             display: "flex",
             alignItems: "center",
             paddingLeft: "20px",
-            borderBottom: "1px solid #F2F2F2",
+            borderBottom: `1px solid ${theme.palette.divider}`,
             paddingRight: "16px",
             justifyContent: "space-between"
           }}
@@ -74,7 +76,6 @@ export default function AppBar(props) {
               display: "flex",
               alignItems: "center",
               paddingLeft: "20px",
-              borderBottom: "1px solid #F2F2F2",
               paddingRight: "16px",
               justifyContent: "space-between"
             }}
@@ -129,7 +130,7 @@ export default function AppBar(props) {
                     <div>
                       <Typography
                         style={{
-                          color: "#000000",
+                          color: theme.palette.text.primary,
                           fontWeight: "bold"
                         }}
                         variant="body1"
@@ -219,7 +220,7 @@ export default function AppBar(props) {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "16px",
-          borderBottom: "1px solid #F2F2F2"
+          borderBottom: `1px solid ${theme.palette.divider}`
         }}
       >
         <div style={{ float: "left" }}>

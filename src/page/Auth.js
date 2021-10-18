@@ -106,7 +106,7 @@ export default function Auth() {
     <div
       style={{
         width: "100%",
-        height: "100%",
+        height: "100vh",
         margin: "0 auto",
         display: "flex",
         padding: "0 16px",
@@ -121,7 +121,9 @@ export default function Auth() {
           width: "600px",
           margin: "0 auto",
           padding: "36px 44px",
-          maxWidth: "100%"
+          maxWidth: "100%",
+          borderRadius: "6px",
+          border: `1px solid #F2F2F2`
         }}
       >
         <p

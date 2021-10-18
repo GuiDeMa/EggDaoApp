@@ -237,7 +237,7 @@ export default function LikeIcon(props) {
         </IconButton>
         <Typography
           className="hoverRed"
-          color={likedCalc > 0 ? "primary" : "inherit"}
+          sx={{ color: likedCalc > 0 ? "#E81212" : "inherit" }}
           component="span"
           variant="body1"
         >

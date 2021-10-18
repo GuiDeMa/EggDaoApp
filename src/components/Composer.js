@@ -355,16 +355,11 @@ export default function Composer(props) {
   return (
     <div>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <Grid
-          container
-          direction="column"
-          style={{ padding: "16px", borderBottom: "1px solid #f2f2f2" }}
-        >
+        <Grid container direction="column" style={{ padding: "16px" }}>
           <Grid item>
             <TextField
               placeholder={placeholder}
               InputProps={{
-                disableUnderline: true,
                 startAdornment: (
                   <InputAdornment position="start">
                     <Avatar src={localStorage.getItem("icon")} />

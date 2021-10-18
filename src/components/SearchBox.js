@@ -30,18 +30,14 @@ export default function SearchBox() {
         <FormControl
           type="submit"
           style={{
-            color: "#000000",
-            borderRadius: "6px",
-            backgroundColor: "#F5F5F5"
+            borderRadius: "6px"
           }}
           fullWidth
         >
           <OutlinedInput
             type="text"
             style={{
-              color: "#000000",
-              borderRadius: "6px",
-              backgroundColor: "#F5F5F5"
+              borderRadius: "6px"
             }}
             id="standard-search"
             variant="outlined"

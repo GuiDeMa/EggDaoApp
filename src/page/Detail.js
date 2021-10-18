@@ -3,12 +3,13 @@ import { useHistory } from "react-router-dom";
 import {
   CircularProgress,
   FormControl,
-  Hidden,
+  Button,
   IconButton,
   MenuItem,
   Select,
   useMediaQuery,
-  useTheme
+  useTheme,
+  Typography
 } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { use100vh } from "react-div-100vh";
@@ -108,18 +109,24 @@ export default function Detail(props) {
                 <IconButton onClick={() => history.goBack()}>
                   <KeyboardBackspaceIcon color="primary" />
                 </IconButton>
-                <div
+                <Button
                   style={{
-                    color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "22px",
-                    fontWeight: "bold",
                     textDecoration: "none",
-                    cursor: "pointer"
+                    textTransform: "none"
                   }}
                 >
-                  Post Detail
-                </div>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: theme.palette.text.primary,
+                      fontSize: "22px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    Post Detail
+                  </Typography>
+                </Button>
                 <div></div>
               </div>
             )}
@@ -157,14 +164,12 @@ export default function Detail(props) {
                 {children.length > 1 && (
                   <FormControl
                     style={{
-                      width: "100%",
-                      borderBottom: "1px solid #F2F2F2"
+                      width: "100%"
                     }}
                   >
                     <Select
                       variant="standard"
                       style={{ paddingLeft: "16px" }}
-                      disableUnderline
                       value={OrderToIndex[orderRepliesBy]}
                       onChange={handleChangeOrder}
                     >

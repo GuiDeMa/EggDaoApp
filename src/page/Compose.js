@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IconButton, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Button,
+  Typography,
+  IconButton,
+  useMediaQuery,
+  useTheme
+} from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { FetchPostDetail } from "../api/TwetchGraph";
 import LeftPane from "../components/LeftPane";
@@ -79,20 +85,26 @@ export default function Compose(props) {
                 <IconButton onClick={() => history.goBack()}>
                   <KeyboardBackspaceIcon color="primary" />
                 </IconButton>
-                <div
+                <Button
                   style={{
-                    color: "#2F2F2F",
                     margin: 0,
-                    fontSize: "22px",
-                    fontWeight: "bold",
                     textDecoration: "none",
-                    cursor: "pointer"
+                    textTransform: "none"
                   }}
                 >
-                  {postData[0]
-                    ? `In reply to ${postData[0].node.userByUserId.name}`
-                    : "New Post"}
-                </div>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: theme.palette.text.primary,
+                      fontSize: "22px",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    {postData[0]
+                      ? `In reply to ${postData[0].node.userByUserId.name}`
+                      : "New Post"}
+                  </Typography>
+                </Button>
                 <div></div>
               </div>
             )}
