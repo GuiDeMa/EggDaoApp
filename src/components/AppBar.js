@@ -219,7 +219,7 @@ export default function AppBar(props) {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "16px",
+          padding: "22px",
           borderBottom: `1px solid ${theme.palette.divider}`
         }}
       >
