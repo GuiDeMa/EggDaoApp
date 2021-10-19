@@ -43,7 +43,7 @@ export default function NotifDetail(props) {
           display: "block",
           padding: "16px",
           position: "relative",
-          borderBottom: "1px solid #f2f2f2",
+          borderBottom: `1px solid ${theme.palette.divider}`,
           textDecoration: "none"
         }}
         id={`notif-${props.id}`}
