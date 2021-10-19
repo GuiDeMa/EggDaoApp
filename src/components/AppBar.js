@@ -240,7 +240,7 @@ export default function AppBar(props) {
             )}
           </IconButton>
           <IconButton
-            style={{ height: "36px", width: "36px" }}
+            style={{ height: "36px", width: "36px", marginLeft: "3px" }}
             component={Link}
             to="/search/?searchTerm="
           >

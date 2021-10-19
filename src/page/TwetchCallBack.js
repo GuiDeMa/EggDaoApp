@@ -106,7 +106,7 @@ export default function TwetchCallback() {
                 <span style={{ color: theme.palette.primary.main }}>
                   Twetch Wallet
                 </span>
-              </a>
+              </a>{" "}
               to EggDao.
             </Typography>
             <Typography

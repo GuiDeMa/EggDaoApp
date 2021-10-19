@@ -59,18 +59,7 @@ export default function LeftPane(props) {
           }}
         >
           <div style={{ paddingBottom: "35px" }}>
-            <Link
-              style={{
-                color: "#2F2F2F",
-                margin: 0,
-                fontSize: "22px",
-                fontWeight: "bold",
-                textDecoration: "none"
-              }}
-              to="/"
-            >
-              <Logo />
-            </Link>
+            <Logo />
           </div>
           <div
             style={{

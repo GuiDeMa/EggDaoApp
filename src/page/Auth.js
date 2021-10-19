@@ -131,14 +131,14 @@ export default function Auth() {
         <Typography
           variant="body1"
           style={{
-            marginTop: "21px",
+            paddingTop: "21px",
             margin: "0 auto",
             fontSize: "18px",
             textAlign: "center",
             lineHeight: "20px"
           }}
         >
-          Operate onchain or don't, whatever
+          We like the egg
         </Typography>
         <div
           style={{

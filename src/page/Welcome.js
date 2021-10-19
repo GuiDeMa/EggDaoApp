@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Grid, Hidden, useMediaQuery, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
+import Logo from "../resources/Logo";
 import TwetchEgg from "../resources/twetchEgg.png";
 
 export default function Welcome() {
