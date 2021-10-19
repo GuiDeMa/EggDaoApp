@@ -22,6 +22,7 @@ import StarsOutlinedIcon from "@mui/icons-material/StarsOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Logo from "../resources/Logo";
 
 import Messages from "./Messages";
 import Notifications from "./Notifications";
@@ -107,27 +108,28 @@ export default function AppBar(props) {
             }}
           >
             {localStorage.tokenTwetchAuth ? (
-              <Link
-                to={`/u/${localStorage.id}`}
-                style={{ textDecoration: "None" }}
-              >
-                <div style={{ cursor: "pointer" }}>
-                  <div style={{ display: "flex", marginBottom: "15px" }}>
-                    <Avatar
-                      style={{
-                        cursor: "pointer",
-                        background: "rgba(0, 0, 0, .5)",
-                        transition: "height .2s ease, width .2s ease",
-                        borderRadius: "100%",
-                        width: "46px",
-                        height: "46px",
-                        display: "inline-block",
-                        marginRight: "16px"
-                      }}
-                      src={localStorage.getItem("icon")}
-                      alt={`${localStorage.getItem("name")}'s avatar`}
-                    />
-                    <div>
+              <div style={{ cursor: "pointer" }}>
+                <div style={{ display: "flex", marginBottom: "15px" }}>
+                  <Avatar
+                    style={{
+                      cursor: "pointer",
+                      background: "rgba(0, 0, 0, .5)",
+                      transition: "height .2s ease, width .2s ease",
+                      borderRadius: "100%",
+                      width: "46px",
+                      height: "46px",
+                      display: "inline-block",
+                      marginRight: "16px"
+                    }}
+                    src={localStorage.getItem("icon")}
+                    alt={`${localStorage.getItem("name")}'s avatar`}
+                  />
+                  <div>
+                    <Link
+                      className="Links"
+                      to={`/u/${localStorage.id}`}
+                      style={{ textDecoration: "None" }}
+                    >
                       <Typography
                         style={{
                           color: theme.palette.text.primary,
@@ -137,19 +139,19 @@ export default function AppBar(props) {
                       >
                         {localStorage.name}
                       </Typography>
-                      <Typography style={{ color: "#828282" }} variant="body1">
-                        @{localStorage.id}
-                      </Typography>
-                    </div>
+                    </Link>
+                    <Typography style={{ color: "#828282" }} variant="body1">
+                      @{localStorage.id}
+                    </Typography>
                   </div>
-                  <div
-                    style={{
-                      color: "#000000",
-                      display: "flex"
-                    }}
-                  ></div>
                 </div>
-              </Link>
+                <div
+                  style={{
+                    color: "#000000",
+                    display: "flex"
+                  }}
+                ></div>
+              </div>
             ) : (
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button
@@ -256,13 +258,7 @@ export default function AppBar(props) {
             }}
             to="/"
           >
-            <div
-              style={{ fontWeight: 669, fontSize: "24px", cursor: "pointer" }}
-            >
-              <span role="img" aria-label="the egg way">
-                (🥚,🐣)
-              </span>
-            </div>
+            <Logo small />
           </Link>
         </div>
         <div style={{ float: "right" }}>

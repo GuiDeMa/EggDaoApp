@@ -8,6 +8,7 @@ import CopyIcon from "../resources/CopyIcon";
 import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
 import defaultAvatar from "../resources/eggApu.png";
+import PostDescription from "./PostDescription";
 
 export default function Post(props) {
   const postTx = props.tx;
@@ -110,32 +111,33 @@ export default function Post(props) {
                   verticalAlign: "top"
                 }}
               >
-                <Typography
-                  variant="body1"
-                  sx={{
-                    display: "inline-block",
-                    overflow: "hidden",
-                    fontSize: "16px",
-                    maxWidth: "calc(100% - 64px)",
-                    fontWeight: "bold",
-                    lineHeight: "24px",
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                    verticalAlign: "top",
+                <Link
+                  className="Links"
+                  to={`/u/${postData.userId}`}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    color: theme.palette.text.primary,
                     textDecoration: "none"
                   }}
                 >
-                  <Link
-                    to={`/u/${postData.userId}`}
-                    onClick={(e) => e.stopPropagation()}
-                    style={{
-                      color: theme.palette.text.primary,
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      display: "inline-block",
+                      overflow: "hidden",
+                      fontSize: "16px",
+                      maxWidth: "calc(100% - 64px)",
+                      fontWeight: "bold",
+                      lineHeight: "24px",
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      verticalAlign: "top",
                       textDecoration: "none"
                     }}
                   >
                     {postData.userByUserId.name}
-                  </Link>
-                </Typography>
+                  </Typography>
+                </Link>
 
                 <Typography
                   variant="body1"
@@ -146,21 +148,7 @@ export default function Post(props) {
                   }}
                 >{`@${postData.userId}`}</Typography>
               </div>
-              <div style={{ position: "relative" }}>
-                <Typography
-                  variant="body1"
-                  style={{
-                    fontSize: "1rem",
-                    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-                    fontWeight: 400,
-                    lineHeight: 1.5,
-                    letterSpacing: "0.00938em",
-                    wordWrap: "break-word"
-                  }}
-                >
-                  {postData.bContent}
-                </Typography>
-              </div>
+              <PostDescription post={postData} />
               <div></div>
             </div>
             <Grid

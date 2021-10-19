@@ -7,7 +7,6 @@ export default function RightPane() {
   const theme = useTheme();
   const handleChange = (e) => {
     setInput(e.target.value);
-    console.log(e.target.value);
   };
 
   return (

@@ -18,6 +18,7 @@ import EmojiObjectsOutlinedIcon from "@mui/icons-material/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@mui/icons-material/StarsOutlined";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Logo from "../resources/Logo";
 
 import Notifications from "./Notifications";
 import Messages from "./Messages";
@@ -68,16 +69,7 @@ export default function LeftPane(props) {
               }}
               to="/"
             >
-              <div
-                style={{ fontWeight: 669, fontSize: "24px", cursor: "pointer" }}
-              >
-                <span role="img" aria-label="the egg way">
-                  (🥚,🐣)
-                </span>
-                <span style={{ fontSize: "18px", marginLeft: "3px" }}>
-                  EggDao
-                </span>
-              </div>
+              <Logo />
             </Link>
           </div>
           <div
@@ -86,27 +78,28 @@ export default function LeftPane(props) {
             }}
           >
             {localStorage.tokenTwetchAuth ? (
-              <Link
-                to={`/u/${localStorage.id}`}
-                style={{ textDecoration: "None" }}
-              >
-                <div style={{ cursor: "pointer" }}>
-                  <div style={{ display: "flex", marginBottom: "15px" }}>
-                    <Avatar
-                      style={{
-                        cursor: "pointer",
-                        background: "rgba(0, 0, 0, .5)",
-                        transition: "height .2s ease, width .2s ease",
-                        borderRadius: "100%",
-                        width: "46px",
-                        height: "46px",
-                        display: "inline-block",
-                        marginRight: "16px"
-                      }}
-                      src={localStorage.getItem("icon")}
-                      alt={`Avatar de ${localStorage.getItem("name")}`}
-                    />
-                    <div>
+              <div style={{ cursor: "pointer" }}>
+                <div style={{ display: "flex", marginBottom: "15px" }}>
+                  <Avatar
+                    style={{
+                      cursor: "pointer",
+                      background: "rgba(0, 0, 0, .5)",
+                      transition: "height .2s ease, width .2s ease",
+                      borderRadius: "100%",
+                      width: "46px",
+                      height: "46px",
+                      display: "inline-block",
+                      marginRight: "16px"
+                    }}
+                    src={localStorage.getItem("icon")}
+                    alt={`Avatar de ${localStorage.getItem("name")}`}
+                  />
+                  <div>
+                    <Link
+                      className="Links"
+                      to={`/u/${localStorage.id}`}
+                      style={{ textDecoration: "None" }}
+                    >
                       <Typography
                         style={{
                           color: theme.palette.text.primary,
@@ -116,19 +109,19 @@ export default function LeftPane(props) {
                       >
                         {localStorage.name}
                       </Typography>
-                      <Typography style={{ color: "#828282" }} variant="body1">
-                        @{localStorage.id}
-                      </Typography>
-                    </div>
+                    </Link>
+                    <Typography style={{ color: "#828282" }} variant="body1">
+                      @{localStorage.id}
+                    </Typography>
                   </div>
-                  <div
-                    style={{
-                      color: "#000000",
-                      display: "flex"
-                    }}
-                  ></div>
                 </div>
-              </Link>
+                <div
+                  style={{
+                    color: "#000000",
+                    display: "flex"
+                  }}
+                ></div>
+              </div>
             ) : (
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button

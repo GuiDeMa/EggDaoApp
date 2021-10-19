@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, OutlinedInput, Typography, useTheme } from "@mui/material";
-
+import Logo from "../resources/Logo";
 import { userData } from "../api/TwetchGraph";
 
 const axios = require("axios");
@@ -60,7 +60,6 @@ export default function TwetchCallback() {
   return (
     <div
       style={{
-        backgroundColor: theme.palette.primary.light,
         height: "100vh",
         display: "flex"
       }}
@@ -73,33 +72,18 @@ export default function TwetchCallback() {
             width: "100%",
             padding: "36px 44px",
             maxWidth: "600px",
-            background: "white",
             boxShadow: "0px 0px 60px rgb(0 0 0 / 10%)",
             borderRadius: "6px"
           }}
         >
           <div style={{ margin: "0 auto", maxWidth: "100%" }}>
             <div style={{ position: "relative", marginBottom: "36px" }}>
-              <div
-                style={{
-                  textAlign: "center",
-                  fontWeight: 669,
-                  fontSize: "24px",
-                  cursor: "pointer"
-                }}
-              >
-                <span role="img" aria-label="the egg way">
-                  (🥚,🐣)
-                </span>
-                <span style={{ fontSize: "18px", marginLeft: "3px" }}>
-                  EggDao
-                </span>
-              </div>
+              <Logo style={{ color: "#000000" }} />
             </div>
             <Typography
               variant="body1"
               style={{
-                color: "#0A0A0B",
+                marginTop: "9px",
                 fontSize: "29px",
                 textAlign: "center",
                 fontWeight: "bold",
@@ -114,12 +98,15 @@ export default function TwetchCallback() {
             >
               We need you to manually link your{" "}
               <a
+                className="Links"
                 href="https://twetch.app/wallet"
                 rel="noreferrer"
                 target="_blank"
               >
-                Twetch Wallet
-              </a>{" "}
+                <span style={{ color: theme.palette.primary.main }}>
+                  Twetch Wallet
+                </span>
+              </a>
               to EggDao.
             </Typography>
             <Typography
@@ -146,7 +133,6 @@ export default function TwetchCallback() {
                 <OutlinedInput
                   style={{
                     padding: "18px 12px",
-                    color: "#010101",
                     marginBottom: "9px",
                     backgroundColor: "#F0F0F6 !important"
                   }}

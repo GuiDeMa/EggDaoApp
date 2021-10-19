@@ -29,7 +29,6 @@ export default function Composer(props) {
     window !== undefined ? () => window().document.body : undefined;
   const ticker = "$EGG";
   const replyTx = location.pathname.split("/")[2];
-  console.log(replyTx);
   const [placeholder, setPlaceholder] = useState("What's the latest?");
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
@@ -79,10 +78,6 @@ export default function Composer(props) {
           setContent("");
           if (replyTx) {
             history.push(`/t/${replyTx}`);
-          } else if (hash === "#ideas") {
-            history.push("/methods");
-          } else if (hash === "#projects") {
-            history.push("/projects");
           } else {
             history.push("/");
           }
@@ -119,10 +114,6 @@ export default function Composer(props) {
         setContent("");
         if (replyTx) {
           history.push(`/t/${replyTx}`);
-        } else if (hash === "#ideas") {
-          history.push("/methods");
-        } else if (hash === "#projects") {
-          history.push("/projects");
         } else {
           history.push("/");
         }

@@ -1,6 +1,7 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Button, Typography, useTheme } from "@mui/material";
+import Logo from "../resources/Logo";
 
 import { twquery } from "../api/TwetchGraph";
 
@@ -11,7 +12,7 @@ export const imbCli = window.location.href.includes("csb")
 export default function Auth() {
   //const history = useHistory();
   const host = window.location.host;
-
+  const theme = useTheme();
   const TwetchLogin = (e) => {
     // config
     let redirectUrl = `https://${host}/auth/callback/twetch`;
@@ -126,24 +127,11 @@ export default function Auth() {
           border: `1px solid #F2F2F2`
         }}
       >
-        <p
+        <Logo style={{ alignContent: "center" }} />
+        <Typography
+          variant="body1"
           style={{
-            color: "#010101",
-            margin: "0 auto 20px auto",
-            fontSize: "30px",
-            textAlign: "center",
-            fontWeight: "bold",
-            lineWeight: "36px"
-          }}
-        >
-          <span role="img" aria-label="the egg way">
-            (🥚,🐣)
-          </span>
-          <span style={{ fontSize: "18px", marginLeft: "3px" }}>EggDao</span>
-        </p>
-        <p
-          style={{
-            color: "#010101",
+            marginTop: "21px",
             margin: "0 auto",
             fontSize: "18px",
             textAlign: "center",
@@ -151,7 +139,7 @@ export default function Auth() {
           }}
         >
           Operate onchain or don't, whatever
-        </p>
+        </Typography>
         <div
           style={{
             width: "100%",
@@ -207,33 +195,6 @@ export default function Auth() {
             But ser, I don't have a Twetch account
           </Button>
         </div>
-        {/* <div
-          style={{
-            width: "100%",
-            margin: "20px auto 0 auto",
-            display: "block",
-            maxWidth: "300px"
-          }}
-        >
-          <Button
-            style={{
-              color: "white",
-              width: "100%",
-              padding: "14px",
-              fontSize: "16px",
-              boxShadow: "none !important",
-              fontWeight: 600,
-              lineHeight: "24px",
-              borderRadius: "6px",
-              textTransform: "none"
-            }}
-            variant="contained"
-            color="primary"
-            onClick={MBLogin}
-          >
-            Log in with MoneyButton
-          </Button>
-        </div> */}
         <div
           style={{
             width: "100%",
@@ -242,36 +203,6 @@ export default function Auth() {
             maxWidth: "300px"
           }}
         >
-          {/* <Button
-            style={{
-              color: "white",
-              width: "100%",
-              padding: "14px",
-              fontSize: "16px",
-              boxShadow: "none !important",
-              fontWeight: 600,
-              lineHeight: "24px",
-              borderRadius: "6px",
-              textTransform: "none"
-            }}
-            variant="contained"
-            color="primary"
-            onClick={RelayXLogin}
-          >
-            Log in with RelayX
-          </Button> */}
-          {/* <div
-            style={{
-              width: "100%",
-              margin: "20px auto 0 auto",
-              display: "block",
-              maxWidth: "300px"
-            }}
-          >
-            <div id="connectButton" onClick={HandCashLogin}>
-              Connect with HandCash
-            </div>
-          </div> */}
           <div
             style={{
               width: "100%",
@@ -280,9 +211,10 @@ export default function Auth() {
               maxWidth: "300px"
             }}
           >
-            <Link to="/">
+            <Link className="Links" to="/">
               <p
                 style={{
+                  color: theme.palette.primary.main,
                   margin: "0 auto",
                   fontSize: "18px",
                   textAlign: "center",

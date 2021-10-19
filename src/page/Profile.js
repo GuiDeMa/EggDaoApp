@@ -209,8 +209,15 @@ export default function Profile(props) {
                   }}
                 >{`@${userData.id}`}</div>
                 <div>{userData.description}</div>
-                <a href={userData.profileUrl} target="_blank" rel="noreferrer">
-                  {userData.profileUrl}
+                <a
+                  className="Links"
+                  href={userData.profileUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span style={{ color: theme.palette.primary.main }}>
+                    {userData.profileUrl}
+                  </span>
                 </a>
               </div>
               <FormControl
