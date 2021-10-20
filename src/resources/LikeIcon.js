@@ -210,7 +210,6 @@ export default function LikeIcon(props) {
   async function likePost(txid) {
     setCount(parseInt(count) + 1);
     setLikedCalc(parseInt(likedCalc) + 1);
-    return;
     twetch
       .publish("twetch/like@0.0.1", { postTransaction: txid })
       .then((res) => {

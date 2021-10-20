@@ -364,7 +364,6 @@ export default function Composer(props) {
       mapReply: replyTx,
       mapComment: ticker + hash
     };
-    return;
 
     twetch
       .publish("twetch/post@0.0.1", payload)
