@@ -32,7 +32,7 @@ const OrderToIndex = {
 };
 
 export default function Detail(props) {
-  const txId = props.match.params.id;
+  const [txId, setTxId] = useState(props.match.params.id);
   const [postData, setPostData] = useState([]);
   const [orderRepliesBy, setOrderRepliesBy] = useState(indexToOrder[0]);
   const [children, setChildren] = useState([]);
@@ -43,6 +43,14 @@ export default function Detail(props) {
   const history = useHistory();
   const height = use100vh();
   const containerHeight = height ? height : "100vh";
+
+  useEffect(() => {
+    setPostData([]),
+      setOrderRepliesBy(indexToOrder[0]),
+      setChildren([]),
+      setParents([]);
+    setTxId(props.match.params.id);
+  }, [props.match.params.id]);
 
   useEffect(() => {
     setLoading(true);
