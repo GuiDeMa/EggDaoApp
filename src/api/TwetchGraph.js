@@ -19,7 +19,9 @@ const PostFields = `{
   postsByReplyPostId {
     totalCount
   }
+  replyPostId
   transaction
+  type
   youLikedCalc
   userId
   userByUserId {
@@ -152,7 +154,7 @@ export function FetchPosts(filter, order, offset) {
 export function FetchHome(ticker, order, offset) {
   //console.log(filter);
   return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {mapComment: {includes: "${ticker}"}}) {
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {or: [{bContent:{includesInsensitive:"${ticker}"}}{mapComment:{includesInsensitive:"${ticker}"}}]}) {
       totalCount
       edges {
         node {
@@ -229,6 +231,17 @@ export function FetchUserData(userId) {
       name
       postsEarnedCalc
       profileUrl
+    }
+  }`);
+}
+
+export function FetchRepliees(id) {
+  return twquery(`{
+    postById(id: "${id} ") {
+      userId
+      userByUserId {
+        name
+      }
     }
   }`);
 }

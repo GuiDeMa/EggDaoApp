@@ -17,6 +17,8 @@ import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
 import Post from "../components/Post";
+import BranchedPost from "../components/BranchedPost";
+import QuotedPost from "../components/QuotedPost";
 import StickyButton from "../components/StickyButton";
 
 const indexToOrder = {
@@ -213,10 +215,33 @@ export default function Dashboard(props) {
                   </p>
                 }
               >
-                {postList.map((post, index) => {
-                  return (
-                    <Post {...post} key={index} tx={post.node.transaction} />
-                  );
+                {postList.map((post) => {
+                  if (post.node.type === "branch") {
+                    return (
+                      <BranchedPost
+                        {...post}
+                        key={post.node.id}
+                        tx={post.node.transaction}
+                      />
+                    );
+                  } else if (post.node.type === "quote") {
+                    return (
+                      <QuotedPost
+                        {...post}
+                        key={post.node.id}
+                        tx={post.node.transaction}
+                      />
+                    );
+                  } else {
+                    //post
+                    return (
+                      <Post
+                        {...post}
+                        key={post.node.id}
+                        tx={post.node.transaction}
+                      />
+                    );
+                  }
                 })}
               </InfiniteScroll>
             </div>

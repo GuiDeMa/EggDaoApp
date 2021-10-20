@@ -19,6 +19,8 @@ import StickyButton from "../components/StickyButton";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
 import Post from "../components/Post";
+import BranchedPost from "../components/BranchedPost";
+import QuotedPost from "../components/QuotedPost";
 import AppBar from "../components/AppBar";
 
 const indexToOrder = {
@@ -282,14 +284,34 @@ export default function Profile(props) {
                   </p>
                 }
               >
-                {postList.map((post) => (
-                  <Post
-                    {...post}
-                    boostDiff={getDiff(post.node.transaction)}
-                    key={post.node.transaction}
-                    tx={post.node.transaction}
-                  />
-                ))}
+                {postList.map((post) => {
+                  if (post.node.type === "branch") {
+                    return (
+                      <BranchedPost
+                        {...post}
+                        key={post.node.id}
+                        tx={post.node.transaction}
+                      />
+                    );
+                  } else if (post.node.type === "quote") {
+                    return (
+                      <QuotedPost
+                        {...post}
+                        key={post.node.id}
+                        tx={post.node.transaction}
+                      />
+                    );
+                  } else {
+                    //post
+                    return (
+                      <Post
+                        {...post}
+                        key={post.node.id}
+                        tx={post.node.transaction}
+                      />
+                    );
+                  }
+                })}
               </InfiniteScroll>
             </div>
           ) : (

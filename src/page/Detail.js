@@ -18,6 +18,8 @@ import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
 import AppBar from "../components/AppBar";
 import Post from "../components/Post";
+import BranchedPost from "../components/BranchedPost";
+import QuotedPost from "../components/QuotedPost";
 
 const indexToOrder = {
   0: "CREATED_AT_DESC",
@@ -146,17 +148,62 @@ export default function Detail(props) {
               overflowY: "auto"
             }}
           >
-            {parents.map((parent) => (
-              <Post
-                {...parent}
-                boostDiff={0}
-                key={parent.node.transaction}
-                tx={parent.node.transaction}
-              />
-            ))}
-            {postData.map((data) => (
-              <Post {...data} boostDiff={getDiff(txId)} key={txId} tx={txId} />
-            ))}
+            {parents.map((post) => {
+              if (post.node.type === "branch") {
+                return (
+                  <BranchedPost
+                    {...post}
+                    key={post.node.id}
+                    tx={post.node.transaction}
+                  />
+                );
+              } else if (post.node.type === "quote") {
+                return (
+                  <QuotedPost
+                    {...post}
+                    key={post.node.id}
+                    tx={post.node.transaction}
+                  />
+                );
+              } else {
+                //post
+                return (
+                  <Post
+                    {...post}
+                    key={post.node.id}
+                    tx={post.node.transaction}
+                  />
+                );
+              }
+            })}
+            {postData.map((post) => {
+              if (post.node.type === "branch") {
+                return (
+                  <BranchedPost
+                    {...post}
+                    key={post.node.id}
+                    tx={post.node.transaction}
+                  />
+                );
+              } else if (post.node.type === "quote") {
+                return (
+                  <QuotedPost
+                    {...post}
+                    key={post.node.id}
+                    tx={post.node.transaction}
+                  />
+                );
+              } else {
+                //post
+                return (
+                  <Post
+                    {...post}
+                    key={post.node.id}
+                    tx={post.node.transaction}
+                  />
+                );
+              }
+            })}
             {loading ? (
               <div
                 style={{
@@ -187,14 +234,34 @@ export default function Detail(props) {
                     </Select>
                   </FormControl>
                 )}
-                {children.map((child) => (
-                  <Post
-                    {...child}
-                    boostDiff={0}
-                    key={child.node.transaction}
-                    tx={child.node.transaction}
-                  />
-                ))}
+                {children.map((post) => {
+                  if (post.node.type === "branch") {
+                    return (
+                      <BranchedPost
+                        {...post}
+                        key={post.node.id}
+                        tx={post.node.transaction}
+                      />
+                    );
+                  } else if (post.node.type === "quote") {
+                    return (
+                      <QuotedPost
+                        {...post}
+                        key={post.node.id}
+                        tx={post.node.transaction}
+                      />
+                    );
+                  } else {
+                    //post
+                    return (
+                      <Post
+                        {...post}
+                        key={post.node.id}
+                        tx={post.node.transaction}
+                      />
+                    );
+                  }
+                })}
               </div>
             )}
           </div>
