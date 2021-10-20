@@ -9,7 +9,7 @@ import {
   useTheme
 } from "@mui/material";
 import Timestamp from "../utils/Timestamp";
-
+import defaultAvatar from "../resources/eggie.jpg";
 import BranchBadge from "../resources/BranchBadge";
 import LikeBadge from "../resources/LikeBadge";
 import FollowBadge from "../resources/FollowBadge";
@@ -110,7 +110,7 @@ export default function NotifDetail(props) {
               }}
               badgeContent={typeToBadge[props.type]}
             >
-              <Avatar src={props.userByActorUserId.icon} />
+              <Avatar src={defaultAvatar} />
             </Badge>
           </Link>
           <div
@@ -150,7 +150,7 @@ export default function NotifDetail(props) {
                     textDecoration: "none"
                   }}
                 >
-                  {props.userByActorUserId.name}
+                  Eggie
                 </Typography>
               </Link>
               <Typography
@@ -160,7 +160,7 @@ export default function NotifDetail(props) {
                   display: "inline-block",
                   verticalAlign: "top"
                 }}
-              >{`@${props.actorUserId}`}</Typography>
+              >{`#${props.actorUserId}`}</Typography>
             </div>
             <div style={{ position: "relative" }}>
               <Typography

@@ -55,24 +55,24 @@ export default function App() {
           <ProtectedRoute
             exact
             path="/compose/:id"
-            render={(props) => <Compose {...props} />}
+            component={(props) => <Compose {...props} />}
           />
           <ProtectedRoute exact path="/compose" component={Compose} />
           <ProtectedRoute
             exact
             path="/search/"
             search="searchTerm=:slug"
-            render={(props) => <Search {...props} />}
+            component={(props) => <Search {...props} />}
           />
           <ProtectedRoute
             exact
             path="/t/:id"
-            render={(props) => <Detail {...props} />}
+            component={(props) => <Detail {...props} />}
           />
           <ProtectedRoute
             exact
             path="/u/:id"
-            render={(props) => <Profile {...props} />}
+            component={(props) => <Profile {...props} />}
           />
         </Switch>
       </Paper>

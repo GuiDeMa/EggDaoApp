@@ -8,14 +8,16 @@ const PostHelper = twetch.Helpers.Post;
 
 const UserName = (props) => {
   const id = props.id;
-  const [name, setName] = useState(id);
+  // const [name, setName] = useState(id);
+  const name = `Eggie#${id}`;
   const theme = useTheme();
 
-  useEffect(() => {
+  /* useEffect(() => {
     FetchUserName(id).then((res) => {
-      setName(res.userById.name);
+      // setName(res.userById.name);
+      setName("Eggie#" + id);
     });
-  }, []);
+  }, []); */
   return (
     <Link
       className="Links"
@@ -26,7 +28,7 @@ const UserName = (props) => {
       <span
         style={{ display: "inline-block", color: theme.palette.primary.main }}
       >
-        @{name}
+        {name}
       </span>
     </Link>
   );

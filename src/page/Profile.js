@@ -18,6 +18,7 @@ import { FetchUserData, FetchUserPosts } from "../api/TwetchGraph";
 import StickyButton from "../components/StickyButton";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
+import defaultAvatar from "../resources/eggie.jpg";
 import Post from "../components/Post";
 import BranchedPost from "../components/BranchedPost";
 import QuotedPost from "../components/QuotedPost";
@@ -168,7 +169,7 @@ export default function Profile(props) {
                       fontWeight: "bold"
                     }}
                   >
-                    {userData.name && `${userData.name}'s`} Profile
+                    {userData.id && `Eggie #${userData.id}'s`} Profile
                   </Typography>
                 </Button>
                 <div></div>
@@ -193,7 +194,9 @@ export default function Profile(props) {
                 }}
               >
                 <Avatar
-                  src={userData.icon}
+                  src={
+                    userId === localStorage.id ? userData.icon : defaultAvatar
+                  }
                   style={{ height: "64px", width: "64px" }}
                 />
               </div>
@@ -205,7 +208,7 @@ export default function Profile(props) {
                   paddingLeft: "16px"
                 }}
               >
-                <div
+                <Typography
                   style={{
                     color: theme.palette.text.primary,
                     display: "inline-block",
@@ -219,8 +222,8 @@ export default function Profile(props) {
                     textDecoration: "none"
                   }}
                 >
-                  {userData.name}
-                </div>
+                  {userId === localStorage.id ? userData.name : "Eggie"}
+                </Typography>
                 <div
                   style={{
                     color: "#828282",
@@ -229,7 +232,7 @@ export default function Profile(props) {
                     verticalAlign: "top",
                     marginLeft: "4px"
                   }}
-                >{`@${userData.id}`}</div>
+                >{`#${userData.id}`}</div>
                 <div>{userData.description}</div>
                 <a
                   className="Links"

@@ -7,8 +7,9 @@ import BoostIcon from "../resources/BoostIcon";
 import CopyIcon from "../resources/CopyIcon";
 import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
-import defaultAvatar from "../resources/eggApu.png";
+import defaultAvatar from "../resources/eggie.jpg";
 import Post from "./Post";
+import QuotedPost from "./QuotedPost";
 import { FetchPostDetail } from "../api/TwetchGraph";
 
 const Twetch = require("@twetch/sdk");
@@ -31,14 +32,25 @@ export default function BranchedPost(props) {
   }, []);
 
   if (branched.node) {
-    return (
-      <Post
-        {...branched}
-        branchedById={userBranchId}
-        branchedByName={userBranchName}
-        tx={branched.node.transaction}
-      />
-    );
+    if (branched.node.type === "post") {
+      return (
+        <Post
+          {...branched}
+          branchedById={userBranchId}
+          branchedByName={userBranchName}
+          tx={branched.node.transaction}
+        />
+      );
+    } else {
+      return (
+        <QuotedPost
+          {...branched}
+          branchedById={userBranchId}
+          branchedByName={userBranchName}
+          tx={branched.node.transaction}
+        />
+      );
+    }
   } else {
     return null;
   }

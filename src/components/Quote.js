@@ -14,7 +14,7 @@ import BoostIcon from "../resources/BoostIcon";
 import CopyIcon from "../resources/CopyIcon";
 import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
-import defaultAvatar from "../resources/eggApu.png";
+import defaultAvatar from "../resources/eggie.jpg";
 import BranchIcon from "../resources/BranchIcon";
 //import MediaGrid from "./MediaGrid";
 import PostDescription from "./PostDescription";
@@ -58,7 +58,7 @@ export default function Quote(props) {
         >
           <Link to={postData.userId} onClick={(e) => e.stopPropagation()}>
             <Avatar
-              src={postData.userByUserId.icon}
+              src={defaultAvatar}
               style={{
                 width: "24px",
                 height: "24px",
@@ -91,7 +91,7 @@ export default function Quote(props) {
                   textDecoration: "none"
                 }}
               >
-                {postData.userByUserId.name}
+                Eggie
               </Typography>
             </Link>
             <Typography
@@ -102,11 +102,11 @@ export default function Quote(props) {
                 fontSize: "16px",
                 fontWeight: "normal",
                 lineHeight: "24px",
-                marginLeft: "6px",
+                marginLeft: "3px",
                 verticalAlign: "top"
               }}
             >
-              @{postData.userId}
+              #{postData.userId}
             </Typography>
           </div>
           <div

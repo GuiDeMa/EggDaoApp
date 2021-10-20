@@ -8,7 +8,7 @@ import CopyIcon from "../resources/CopyIcon";
 import BranchIcon from "../resources/BranchIcon";
 import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
-import defaultAvatar from "../resources/eggApu.png";
+import defaultAvatar from "../resources/eggie.jpg";
 import PostDescription from "./PostDescription";
 import { FetchRepliees } from "../api/TwetchGraph";
 
@@ -74,7 +74,9 @@ export default function Post(props) {
                 }}
                 variant="body1"
               >
-                {branchedByName} @{branchedById} branched
+                {branchedById === localStorage.id
+                  ? "you branched"
+                  : `Eggie #${branchedById} branched`}
               </Typography>
             </Link>
           </div>
@@ -149,7 +151,7 @@ export default function Post(props) {
                 to={`/u/${postData.userId}`}
                 onClick={(e) => e.stopPropagation()}
               >
-                <Avatar src={postData.userByUserId.icon} />
+                <Avatar src={defaultAvatar} />
               </Link>
               <div
                 style={{
@@ -189,18 +191,19 @@ export default function Post(props) {
                         textDecoration: "none"
                       }}
                     >
-                      {postData.userByUserId.name}
+                      Eggie
                     </Typography>
                   </Link>
 
                   <Typography
                     variant="body1"
                     style={{
+                      marginLeft: "3px",
                       color: "#828282",
                       display: "inline-block",
                       verticalAlign: "top"
                     }}
-                  >{`@${postData.userId}`}</Typography>
+                  >{`#${postData.userId}`}</Typography>
                 </div>
                 {replierName && (
                   <Typography
@@ -216,7 +219,7 @@ export default function Post(props) {
                     Replying to{" "}
                     <Link className="Links" to={`/u/${replierId}`}>
                       <span style={{ color: theme.palette.primary.main }}>
-                        @{replierName}
+                        Eggie #{replierId}
                       </span>
                     </Link>
                   </Typography>
