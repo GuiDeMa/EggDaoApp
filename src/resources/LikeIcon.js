@@ -1,11 +1,19 @@
-import { Button, Drawer, SvgIcon, IconButton, Typography } from "@mui/material";
-import { createTheme } from "@mui/material";
+import {
+  Button,
+  Drawer,
+  SvgIcon,
+  IconButton,
+  Typography,
+  Paper,
+  createTheme,
+  useTheme
+} from "@mui/material";
 import { ThemeProvider } from "@mui/styles";
 import { useState, useEffect } from "react";
 
 const Twetch = require("@twetch/sdk");
 
-const theme = createTheme({
+/* const theme = createTheme({
   palette: {
     primary: {
       // Purple and green play nicely together.
@@ -15,19 +23,23 @@ const theme = createTheme({
       main: "#b17c01"
     }
   }
-});
+}); */
 
 export default function LikeIcon(props) {
   const window1 = props.window;
   const twetch = new Twetch({
     clientIdentifier: "10d3b9a3-3733-4769-9f97-d255ee37113b"
   });
+  const exchangeRate = twetch.Helpers.exchangeRate.price;
   const container =
     window1 !== undefined ? () => window().document.body : undefined;
   const txId = props.tx;
   const [open, setOpen] = useState(false);
   const [count, setCount] = useState(props.count);
   const [likedCalc, setLikedCalc] = useState(props.likedCalc);
+  const theme = useTheme();
+  const dolAmount = 0.5; //config
+  const bitAmount = parseFloat(dolAmount / exchangeRate).toFixed(8);
 
   useEffect(() => {
     const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
@@ -84,27 +96,32 @@ export default function LikeIcon(props) {
           }}
         >
           <div style={{ flexGrow: 1 }}></div>
-          <div
+          <Paper
             style={{
               width: "600px",
               maxWidth: "calc(100% - 24px)",
-              background: "white",
               borderRadius: "6px 6px 0 0"
             }}
           >
-            <div style={{ padding: "16px", display: "flex" }}>
-              <div
+            <Paper elevation={3} style={{ padding: "16px", display: "flex" }}>
+              <Typography
                 style={{
-                  color: "#2F2F2F",
                   margin: 0,
-                  fontSize: "22px",
                   fontWeight: "bold",
+                  fontSize: "22px",
                   textDecoration: "none"
                 }}
               >
                 Twetch
-                <span style={{ color: "#085AF6", fontSize: "16px" }}>Pay</span>
-              </div>
+                <span
+                  style={{
+                    color: theme.palette.primary.main,
+                    fontSize: "16px"
+                  }}
+                >
+                  Pay
+                </span>
+              </Typography>
               <div style={{ flexGrow: 1 }} />
               <p
                 style={{
@@ -119,31 +136,36 @@ export default function LikeIcon(props) {
               >
                 Close
               </p>
-            </div>
-
+            </Paper>
             <div
-              id="button"
+              id="detail"
               style={{
-                marginBottom: "16px"
+                padding: "16px",
+                borderTop: `2px solid ${theme.palette.divider}`
               }}
             >
-              <div>
+              <div
+                style={{
+                  margin: "0 0 26px 0",
+                  borderRadius: "6px"
+                }}
+              >
                 <Typography
                   style={{
-                    color: "#1A1A1C",
+                    color: theme.palette.text.primary,
                     margin: "0 auto",
                     fontSize: "36px",
                     textAlign: "center",
                     fontWeight: 600,
                     lineHeight: "44px"
                   }}
-                  variant="body1"
+                  variant="h3"
                 >
-                  $0.05
+                  ${dolAmount}
                 </Typography>
                 <Typography
-                  style={{
-                    color: "#A5A4A9",
+                  sx={{
+                    color: theme.palette.text.secondary,
                     margin: "0 auto",
                     fontSize: "16px",
                     marginTop: "2px",
@@ -151,34 +173,34 @@ export default function LikeIcon(props) {
                     lineHeight: "20px",
                     marginBottom: "18px"
                   }}
-                  variant="body1"
+                  variant="h6"
                 >
-                  0.00039463 BSV
+                  {bitAmount} BSV
                 </Typography>
-                <div style={{ display: "flex" }}>
-                  <div style={{ flexGrow: 1 }} />
-                  <Button
-                    style={{
-                      width: "257px",
-                      display: "block",
-                      padding: "14px",
-                      fontSize: "16px",
-                      fontWeight: 600,
-                      lineWeight: "24px",
-                      textTransform: "none"
-                    }}
-                    color="secondary"
-                    variant="contained"
-                    onClick={handle1Click}
-                  >
-                    Like It!
-                  </Button>
-                  <div style={{ flexGrow: 1 }} />
-                </div>
               </div>
             </div>
-            <div style={{ height: "10vh" }}></div>
-          </div>
+
+            <div style={{ display: "flex" }}>
+              <div style={{ flexGrow: 1 }} />
+              <Button
+                style={{
+                  width: "257px",
+                  padding: "14px",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  lineWeight: "24px",
+                  textTransform: "none"
+                }}
+                color="primary"
+                variant="contained"
+                onClick={handle1Click}
+              >
+                Twetch It!
+              </Button>
+              <div style={{ flexGrow: 1 }} />
+            </div>
+            <div style={{ height: "10vh" }} />
+          </Paper>
           <div style={{ flexGrow: 1 }}></div>
         </div>
       </div>
@@ -188,6 +210,7 @@ export default function LikeIcon(props) {
   async function likePost(txid) {
     setCount(parseInt(count) + 1);
     setLikedCalc(parseInt(likedCalc) + 1);
+    return;
     twetch
       .publish("twetch/like@0.0.1", { postTransaction: txid })
       .then((res) => {

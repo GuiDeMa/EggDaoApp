@@ -31,7 +31,7 @@ export default function StickyButton(props) {
         aria-label="compose"
         disabled={!localStorage.getItem("tokenTwetchAuth")}
         component={Link}
-        to={`/compose${hash}`}
+        to={`/compose`}
       >
         <AddIcon />
       </Fab>

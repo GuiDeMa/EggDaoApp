@@ -3,6 +3,7 @@ import { useTheme } from "@mui/material";
 
 export default function Logo(props) {
   const small = props.small;
+  const left = props.left;
   const theme = useTheme();
   return (
     <div
@@ -11,7 +12,8 @@ export default function Logo(props) {
         fontSize: "24px",
         color: theme.palette.text.primary,
         cursor: "pointer",
-        textAlign: "center"
+        textAlign: left ? "" : "center",
+        paddingLeft: left && "24px"
       }}
     >
       <span role="img" aria-label="the egg way">

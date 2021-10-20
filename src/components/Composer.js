@@ -7,7 +7,9 @@ import {
   Snackbar,
   InputAdornment,
   TextField,
-  Typography
+  Typography,
+  useTheme,
+  Paper
 } from "@mui/material";
 import { Alert } from "@mui/material";
 import { Link, useHistory, useLocation } from "react-router-dom";
@@ -25,6 +27,7 @@ export default function Composer(props) {
     hash = props.hash;
   }
   const history = useHistory();
+  const theme = useTheme();
   const container =
     window !== undefined ? () => window().document.body : undefined;
   const ticker = "$EGG";
@@ -38,6 +41,9 @@ export default function Composer(props) {
   const twetch = new Twetch({
     clientIdentifier: "10d3b9a3-3733-4769-9f97-d255ee37113b"
   });
+  const exchangeRate = twetch.Helpers.exchangeRate.price;
+  const dolAmount = 0.02; //config
+  const bitAmount = parseFloat(dolAmount / exchangeRate).toFixed(8);
 
   useEffect(() => {
     const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
@@ -90,7 +96,7 @@ export default function Composer(props) {
 
   const getColor = () => {
     //console.log(256 - content.length);
-    if (content.length > 250) {
+    if (content.length >= 250) {
       return "#E81212";
     } else {
       if (251 - content.length < 21) {
@@ -145,27 +151,32 @@ export default function Composer(props) {
           }}
         >
           <div style={{ flexGrow: 1 }}></div>
-          <div
+          <Paper
             style={{
               width: "600px",
               maxWidth: "calc(100% - 24px)",
-              background: "white",
               borderRadius: "6px 6px 0 0"
             }}
           >
-            <div style={{ padding: "16px", display: "flex" }}>
-              <div
+            <Paper elevation={3} style={{ padding: "16px", display: "flex" }}>
+              <Typography
                 style={{
-                  color: "#2F2F2F",
                   margin: 0,
-                  fontSize: "22px",
                   fontWeight: "bold",
+                  fontSize: "22px",
                   textDecoration: "none"
                 }}
               >
                 Twetch
-                <span style={{ color: "#085AF6", fontSize: "16px" }}>Pay</span>
-              </div>
+                <span
+                  style={{
+                    color: theme.palette.primary.main,
+                    fontSize: "16px"
+                  }}
+                >
+                  Pay
+                </span>
+              </Typography>
               <div style={{ flexGrow: 1 }} />
               <p
                 style={{
@@ -180,12 +191,12 @@ export default function Composer(props) {
               >
                 Close
               </p>
-            </div>
+            </Paper>
             <div
               id="detail"
               style={{
                 padding: "16px",
-                borderTop: "2px solid #f2f2f2"
+                borderTop: `2px solid ${theme.palette.divider}`
               }}
             >
               <div
@@ -194,11 +205,12 @@ export default function Composer(props) {
                   borderRadius: "6px"
                 }}
               >
-                <div
+                <Paper
+                  elevation={12}
                   style={{
                     display: "block",
-                    padding: "16px",
-                    background: "#F6F5FB",
+                    margin: "21px",
+                    padding: "21px",
                     borderRadius: "6px",
                     textDecoration: "none"
                   }}
@@ -218,7 +230,6 @@ export default function Composer(props) {
                   <div
                     style={{
                       width: "calc(100% - 58px)",
-
                       display: "inline-block",
                       verticalAlign: "top"
                     }}
@@ -231,12 +242,14 @@ export default function Composer(props) {
                       }}
                     >
                       <Link
+                        className="Links"
                         to={`/u/${localStorage.id}`}
                         onClick={(e) => e.stopPropagation()}
+                        style={{}}
                       >
-                        <div
+                        <Typography
                           style={{
-                            color: "#000000",
+                            color: theme.palette.text.primary,
                             cursor: "pointer",
                             display: "inline-block",
                             overflow: "hidden",
@@ -246,12 +259,11 @@ export default function Composer(props) {
                             lineHeight: "24px",
                             whiteSpace: "nowrap",
                             textOverflow: "ellipsis",
-                            verticalAlign: "top",
-                            textDecoration: "none"
+                            verticalAlign: "top"
                           }}
                         >
                           {localStorage.name}
-                        </div>
+                        </Typography>
                       </Link>
                       <Typography
                         variant="body1"
@@ -280,7 +292,43 @@ export default function Composer(props) {
                     </div>
                     <div></div>
                   </div>
-                </div>
+                </Paper>
+              </div>
+            </div>
+            <div id="detail" style={{}}>
+              <div
+                style={{
+                  margin: "0 0 26px 0",
+                  borderRadius: "6px"
+                }}
+              >
+                <Typography
+                  style={{
+                    color: theme.palette.text.primary,
+                    margin: "0 auto",
+                    fontSize: "36px",
+                    textAlign: "center",
+                    fontWeight: 600,
+                    lineHeight: "44px"
+                  }}
+                  variant="h3"
+                >
+                  ${dolAmount}
+                </Typography>
+                <Typography
+                  sx={{
+                    color: theme.palette.text.secondary,
+                    margin: "0 auto",
+                    fontSize: "16px",
+                    marginTop: "2px",
+                    textAlign: "center",
+                    lineHeight: "20px",
+                    marginBottom: "18px"
+                  }}
+                  variant="h6"
+                >
+                  {bitAmount} BSV
+                </Typography>
               </div>
             </div>
             <div style={{ display: "flex" }}>
@@ -303,7 +351,7 @@ export default function Composer(props) {
               <div style={{ flexGrow: 1 }} />
             </div>
             <div style={{ height: "10vh" }} />
-          </div>
+          </Paper>
           <div style={{ flexGrow: 1 }}></div>
         </div>
       </div>
@@ -316,6 +364,7 @@ export default function Composer(props) {
       mapReply: replyTx,
       mapComment: ticker + hash
     };
+    return;
 
     twetch
       .publish("twetch/post@0.0.1", payload)
@@ -367,7 +416,8 @@ export default function Composer(props) {
           <Grid item>
             <div style={{ display: "flex" }}>
               <div style={{ flexGrow: 1 }}></div>
-              <div
+              <Paper
+                elevation={24}
                 style={{
                   top: "unset",
                   margin: "8px 0",
@@ -376,7 +426,6 @@ export default function Composer(props) {
                   right: "0px",
                   width: "30px",
                   fontSize: "12px",
-                  background: "#F2F2F2",
                   lineHeight: "20px",
                   borderRadius: "9px"
                 }}
@@ -394,7 +443,7 @@ export default function Composer(props) {
                 >
                   {250 - content.length}
                 </Typography>
-              </div>
+              </Paper>
             </div>
           </Grid>
           <Grid item>

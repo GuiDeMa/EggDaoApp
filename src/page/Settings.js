@@ -28,7 +28,6 @@ export default function Settings(props) {
     setIsDarkMode(e.target.checked);
     localStorage.setItem("colorMode", !isDarkMode ? "dark" : "light");
     window.location.reload();
-    console.log(localStorage.colorMode);
   };
 
   const handleChange1Click = (e) => {

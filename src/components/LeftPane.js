@@ -59,7 +59,17 @@ export default function LeftPane(props) {
           }}
         >
           <div style={{ paddingBottom: "35px" }}>
-            <Logo />
+            <Link
+              style={{
+                margin: 0,
+                fontSize: "22px",
+                fontWeight: "bold",
+                textDecoration: "none"
+              }}
+              to="/"
+            >
+              <Logo left />
+            </Link>
           </div>
           <div
             style={{
@@ -87,7 +97,7 @@ export default function LeftPane(props) {
                     <Link
                       className="Links"
                       to={`/u/${localStorage.id}`}
-                      style={{ textDecoration: "None" }}
+                      style={{ textDecoration: "none" }}
                     >
                       <Typography
                         style={{
