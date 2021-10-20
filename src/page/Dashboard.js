@@ -31,7 +31,7 @@ const OrderToIndex = {
   RANKING_DESC: 20
 };
 
-export default function Home(props) {
+export default function Dashboard(props) {
   const ticker = "$EGG";
   //console.log(filter);
   const [orderBy, setOrderBy] = useState(indexToOrder[0]);
