@@ -7,7 +7,7 @@ import TwetchCallback from "./page/TwetchCallBack";
 import Auth from "./page/Auth";
 import Notifications from "./page/Notifications";
 import Compose from "./page/Compose";
-import Home from "./page/Home";
+import Dashboard from "./page/Dashboard";
 import Profile from "./page/Profile";
 import Search from "./page/Search";
 import Detail from "./page/Detail";
@@ -44,7 +44,7 @@ export default function App() {
           />
           <Route exact path="/welcome" component={Welcome} />
           <Route exact path="/notifications" component={Notifications} />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Dashboard} />
           <Route exact path="/features" component={Features} />
           <Route exact path="/settings" component={Settings} />
           <Route
