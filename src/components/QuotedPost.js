@@ -35,6 +35,7 @@ export default function QuotedPost(props) {
   const displayDesc = PostHelper.displayDescription(postData);
   let desc = PostHelper.description(postData);
   let branchTx = PostHelper.branchTransaction(desc);
+  console.log(branchTx);
 
   useEffect(() => {
     if (postData.replyPostId) {
@@ -46,15 +47,16 @@ export default function QuotedPost(props) {
   }, []);
 
   useEffect(() => {
-    FetchPostDetail(branchTx).then((data) => {
-      //console.log(data.allposts);
-      setQuoted(data.allPosts.edges[0]);
-    });
+    branchTx &&
+      FetchPostDetail(branchTx).then((data) => {
+        setQuoted(data.allPosts.edges[0]);
+      });
   }, []);
   const getDetail = (e) => {
     e.stopPropagation();
     history.push(`/t/${postTx}`);
   };
+
   if (postData.userByUserId) {
     return (
       <div>
