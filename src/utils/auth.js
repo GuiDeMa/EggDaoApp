@@ -3,7 +3,7 @@ const clientId = "";
 const twetch = new Twetch({ clientIdentifier: clientId });
 class Auth {
   constructor() {
-    this.authenticated = false;
+    this.authenticated = localStorage.tokenTwetchAuth || false;
   }
 
   login(cb) {
