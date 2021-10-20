@@ -35,7 +35,7 @@ const OrderToIndex = {
 
 export default function Profile(props) {
   const [orderBy, setOrderBy] = useState(indexToOrder[0]);
-  const userId = props.match.params.id;
+  const [userId, setUserId] = useState(props.match.params.id);
   const [offset, setOffset] = useState(0);
   const [userData, setUserData] = useState({});
   const [postList, setPostList] = useState([]);
@@ -57,16 +57,34 @@ export default function Profile(props) {
       setOffset(offset + 30);
     });
   };
+  useEffect(() => {
+    FetchUserData(userId).then((data) => {
+      setUserData(data.userById);
+    });
+    //getBoosts().then((res) => setBoosts(res));
+  }, [userId]);
+
+  useEffect(() => {
+    setPostList([]);
+    setTotalCount(0);
+    setHasMore(true);
+    setOrderBy(indexToOrder[0]);
+    setOffset(0);
+    setUserId(props.match.params.id);
+  }, [props.match.params.id]);
 
   useEffect(() => {
     setLoading(true);
-    FetchUserData(userId).then((data) => {
-      setUserData(data.userById);
+    FetchUserPosts(userId, orderBy, offset).then((res) => {
+      setTotalCount(res.allPosts.totalCount);
+      setPostList(postList.concat(res.allPosts.edges));
       setLoading(false);
+      if (totalCount !== 0 && postList.length >= totalCount) {
+        setHasMore(false);
+      }
+      setOffset(offset + 30);
     });
-    fetchMore();
-    //getBoosts().then((res) => setBoosts(res));
-  }, [orderBy, userId]);
+  }, [userId, orderBy]);
 
   const handleChangeOrder = (event) => {
     setPostList([]);
@@ -276,6 +294,7 @@ export default function Profile(props) {
             <div
               style={{
                 display: "flex",
+                height: `calc(${containerHeight}px - 84px)`,
                 marginTop: "16px",
                 justifyContent: "center",
                 overflow: "hidden"
