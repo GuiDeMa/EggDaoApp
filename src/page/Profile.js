@@ -161,16 +161,31 @@ export default function Profile(props) {
                     textTransform: "none"
                   }}
                 >
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: theme.palette.text.primary,
-                      fontSize: "22px",
-                      fontWeight: "bold"
-                    }}
-                  >
-                    {userData.id && `Eggie #${userData.id}'s`} Profile
-                  </Typography>
+                  {userData.id ? (
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: theme.palette.text.primary,
+                        fontSize: "22px",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      {userData.id === localStorage.id
+                        ? "Your Profile"
+                        : `Eggie #${userData.id}'s Profile`}
+                    </Typography>
+                  ) : (
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: theme.palette.text.primary,
+                        fontSize: "22px",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      Profile
+                    </Typography>
+                  )}
                 </Button>
                 <div></div>
               </div>
