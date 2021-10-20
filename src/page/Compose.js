@@ -8,6 +8,7 @@ import {
   useTheme
 } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { use100vh } from "react-div-100vh";
 import { FetchPostDetail } from "../api/TwetchGraph";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
@@ -21,6 +22,8 @@ export default function Compose(props) {
   //const [boosts, setBoosts] = useState([]);
   const theme = useTheme();
   const history = useHistory();
+  const height = use100vh();
+  const containerHeight = height ? height : "100vh";
 
   useEffect(() => {
     if (txId) {
@@ -79,7 +82,7 @@ export default function Compose(props) {
                   justifyContent: "space-between",
                   alignItems: "center",
                   padding: "16px",
-                  borderBottom: "1px solid #F2F2F2"
+                  borderBottom: `1px solid ${theme.palette.divider}`
                 }}
               >
                 <IconButton onClick={() => history.goBack()}>
@@ -109,9 +112,17 @@ export default function Compose(props) {
               </div>
             )}
           </div>
-          {txId &&
-            postData.map((data) => <Post {...data} key={txId} tx={txId} />)}
-          <Composer />
+          <div
+            style={{
+              position: "relative",
+              height: `calc(${containerHeight}px - 81px)`,
+              overflowY: "auto"
+            }}
+          >
+            {txId &&
+              postData.map((data) => <Post {...data} key={txId} tx={txId} />)}
+            <Composer />
+          </div>
         </div>
       </div>
       {mdDown ? null : <RightPane />}
