@@ -35,7 +35,6 @@ export default function QuotedPost(props) {
   const displayDesc = PostHelper.displayDescription(postData);
   let desc = PostHelper.description(postData);
   let branchTx = PostHelper.branchTransaction(desc);
-  console.log(branchTx);
 
   useEffect(() => {
     if (postData.replyPostId) {
