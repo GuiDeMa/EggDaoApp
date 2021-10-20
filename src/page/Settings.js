@@ -11,6 +11,7 @@ import {
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
+import auth from "../utils/auth";
 
 export default function Settings(props) {
   const [isDarkMode, setIsDarkMode] = useState(
@@ -34,14 +35,13 @@ export default function Settings(props) {
     e.preventDefault();
     setIsOneClick(e.target.checked);
     localStorage.setItem("isOneClick", !isOneClick);
-    console.log(localStorage.isOneClick);
   };
 
   const logOut = (e) => {
     e.preventDefault();
-    localStorage.clear();
-    window.alert("Logged Out!");
-    history.push("/auth");
+    auth.logout(() => {
+      props.history.push("/auth");
+    });
   };
 
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));

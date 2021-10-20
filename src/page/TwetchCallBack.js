@@ -3,11 +3,12 @@ import { useHistory } from "react-router-dom";
 import { Button, OutlinedInput, Typography, useTheme } from "@mui/material";
 import Logo from "../resources/Logo";
 import { userData } from "../api/TwetchGraph";
+import auth from "../utils/auth";
 
 const axios = require("axios");
 const Twetch = require("@twetch/sdk");
 
-export default function TwetchCallback() {
+export default function TwetchCallback(props) {
   const [recoveryPhrase, setRecoveryPhrase] = useState("");
   const [error, setError] = useState(false);
   const [errorDesc, setErrorDesc] = useState("");
@@ -50,7 +51,9 @@ export default function TwetchCallback() {
       const pKey = twetch.crypto.privFromMnemonic(recoveryPhrase);
       twetch.wallet.restore(pKey);
       localStorage.setItem("mnemonic", recoveryPhrase);
-      history.push("/");
+      auth.login(() => {
+        history.push("/");
+      });
     } catch (err) {
       setError(true);
       setErrorDesc(err.message);

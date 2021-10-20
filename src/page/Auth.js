@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Typography, useTheme } from "@mui/material";
+import { Button, Paper, Typography, useTheme } from "@mui/material";
 import Logo from "../resources/Logo";
 
 import { twquery } from "../api/TwetchGraph";
@@ -117,14 +117,14 @@ export default function Auth() {
       }}
     >
       <div style={{ flexGrow: 1 }} />
-      <div
+      <Paper
+        elevation={9}
         style={{
           width: "600px",
           margin: "0 auto",
           padding: "36px 44px",
           maxWidth: "100%",
-          borderRadius: "6px",
-          border: `1px solid #F2F2F2`
+          borderRadius: "6px"
         }}
       >
         <Logo style={{ alignContent: "center" }} />
@@ -211,7 +211,7 @@ export default function Auth() {
               maxWidth: "300px"
             }}
           >
-            <Link className="Links" to="/">
+            {/* <Link className="Links" to="/">
               <p
                 style={{
                   color: theme.palette.primary.main,
@@ -223,10 +223,10 @@ export default function Auth() {
               >
                 Navigate anonymously
               </p>
-            </Link>
+            </Link> */}
           </div>
         </div>
-      </div>
+      </Paper>
       <div style={{ flexGrow: 1 }} />
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import { getABI } from "./api/TwetchActions";
 import { Paper, createTheme, ThemeProvider } from "@mui/material";
@@ -15,6 +15,7 @@ import Welcome from "./page/Welcome";
 import Settings from "./page/Settings";
 import "./style.css";
 import Features from "./page/Features";
+import auth from "./utils/auth";
 
 export default function App() {
   const theme = createTheme({
@@ -43,28 +44,32 @@ export default function App() {
             render={() => <TwetchCallback />}
           />
           <Route exact path="/welcome" component={Welcome} />
-          <Route exact path="/notifications" component={Notifications} />
-          <Route exact path="/" component={Dashboard} />
-          <Route exact path="/features" component={Features} />
-          <Route exact path="/settings" component={Settings} />
-          <Route
+          <ProtectedRoute
+            exact
+            path="/notifications"
+            component={Notifications}
+          />
+          <ProtectedRoute exact path="/" component={Dashboard} />
+          <ProtectedRoute exact path="/features" component={Features} />
+          <ProtectedRoute exact path="/settings" component={Settings} />
+          <ProtectedRoute
             exact
             path="/compose/:id"
             render={(props) => <Compose {...props} />}
           />
-          <Route exact path="/compose" component={Compose} />
-          <Route
+          <ProtectedRoute exact path="/compose" component={Compose} />
+          <ProtectedRoute
             exact
             path="/search/"
             search="searchTerm=:slug"
             render={(props) => <Search {...props} />}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/t/:id"
             render={(props) => <Detail {...props} />}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/u/:id"
             render={(props) => <Profile {...props} />}
@@ -80,4 +85,28 @@ const setABI = async () => {
     let abi = await getABI();
     localStorage.setItem("abi", JSON.stringify(abi));
   }
+};
+
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        if (auth.authenticated) {
+          return <Component {...props} />;
+        } else {
+          return (
+            <Redirect
+              to={{
+                pathname: "/welcome",
+                state: {
+                  from: props.location
+                }
+              }}
+            />
+          );
+        }
+      }}
+    />
+  );
 };
