@@ -57,14 +57,9 @@ export default function Profile(props) {
       setOffset(offset + 30);
     });
   };
-  useEffect(() => {
-    FetchUserData(userId).then((data) => {
-      setUserData(data.userById);
-    });
-    //getBoosts().then((res) => setBoosts(res));
-  }, [userId]);
 
   useEffect(() => {
+    setUserData({});
     setPostList([]);
     setTotalCount(0);
     setHasMore(true);
@@ -72,6 +67,13 @@ export default function Profile(props) {
     setOffset(0);
     setUserId(props.match.params.id);
   }, [props.match.params.id]);
+
+  useEffect(() => {
+    FetchUserData(userId).then((data) => {
+      setUserData(data.userById);
+    });
+    //getBoosts().then((res) => setBoosts(res));
+  }, [userId]);
 
   useEffect(() => {
     setLoading(true);
