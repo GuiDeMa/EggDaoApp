@@ -47,11 +47,11 @@ export default function PostDescription(props) {
   const generateDesc = async (desc) => {
     let jsx = [];
     elements.forEach((e) => {
-      e.forEach((o) => {
+      e.forEach((o, index) => {
         if (o.type === "text") {
-          jsx.push(<span>{o.value}</span>);
+          jsx.push(<span key={index}>{o.value}</span>);
         } else if (o.type === "mention") {
-          jsx.push(<UserName id={o.userId} />);
+          jsx.push(<UserName key={index} id={o.userId} />);
         }
       });
     });
