@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 import { ThemeProvider } from "@mui/styles";
 import { useState, useEffect } from "react";
-
+import { BSVABI } from "../utils/BSVABI";
+import { digestMessage } from "../api/TwetchActions";
 const Twetch = require("@twetch/sdk");
 
 /* const theme = createTheme({
@@ -27,8 +28,9 @@ const Twetch = require("@twetch/sdk");
 
 export default function LikeIcon(props) {
   const window1 = props.window;
+  const clientId = "10d3b9a3-3733-4769-9f97-d255ee37113b";
   const twetch = new Twetch({
-    clientIdentifier: "10d3b9a3-3733-4769-9f97-d255ee37113b"
+    clientIdentifier: clientId
   });
   const exchangeRate = twetch.Helpers.exchangeRate.price;
   const container =
@@ -38,7 +40,9 @@ export default function LikeIcon(props) {
   const [count, setCount] = useState(props.count);
   const [likedCalc, setLikedCalc] = useState(props.likedCalc);
   const theme = useTheme();
-  const dolAmount = 0.5; //config
+  const minAmount = 0.05;
+  const dolAmount = 0.218; //config
+  const coefMul = dolAmount / minAmount;
   const bitAmount = parseFloat(dolAmount / exchangeRate).toFixed(8);
 
   useEffect(() => {
@@ -210,6 +214,57 @@ export default function LikeIcon(props) {
   async function likePost(txid) {
     setCount(parseInt(count) + 1);
     setLikedCalc(parseInt(likedCalc) + 1);
+    let action = "twetch/like@0.0.1";
+    let obj = { postTransaction: txid, clientIdentifier: clientId };
+    const abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
+    abi.fromObject(obj);
+
+    let payeeResponse = await twetch.fetchPayees({
+      args: abi.toArray(),
+      action
+    });
+    let tot = 0;
+
+    const customPayees = payeeResponse.payees.map((p) => {
+      tot = tot + p.amount * coefMul;
+      return { ...p, amount: p.amount * coefMul };
+    });
+    let invoice = payeeResponse.invoice;
+    try {
+      await abi.replace({
+        "#{invoice}": () => invoice
+      });
+      let arg = abi.action.args.find((e) => e.type === "Signature");
+      const ab = abi
+        .toArray()
+        .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
+      const contentHash = await digestMessage(ab);
+      await abi.replace({
+        "#{mySignature}": () => twetch.wallet.sign(contentHash),
+        "#{myAddress}": () => twetch.wallet.address()
+      });
+
+      const tx = await twetch.wallet.buildTx(
+        abi.toArray(),
+        customPayees,
+        action
+      );
+
+      twetch
+        .publishRequest({
+          signed_raw_tx: tx.toString(),
+          invoice,
+          action,
+          broadcast: true
+        })
+        .then((resp) => {
+          console.log(resp);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+
+    return;
     twetch
       .publish("twetch/like@0.0.1", { postTransaction: txid })
       .then((res) => {
@@ -257,14 +312,14 @@ export default function LikeIcon(props) {
             ></path>
           </SvgIcon>
         </IconButton>
-        <Typography
+        {/* <Typography
           className="hoverRed"
           sx={{ color: likedCalc > 0 ? "#E81212" : "inherit" }}
           component="span"
           variant="body1"
         >
           {count}
-        </Typography>
+        </Typography> */}
       </div>
       <Drawer
         style={{
