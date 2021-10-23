@@ -25,12 +25,7 @@ const Twetch = require("@twetch/sdk");
 export default function Composer(props) {
   const window = props.window;
   const location = useLocation();
-  let hash = "";
-  if (location.hash) {
-    hash = location.hash;
-  } else if (props.hash) {
-    hash = props.hash;
-  }
+
   const history = useHistory();
   const theme = useTheme();
   const container =
@@ -77,6 +72,15 @@ export default function Composer(props) {
 
   const handleChangeType = (e) => {
     setType(e.target.value);
+    if (e.target.value === "default") {
+      setPlaceholder("What's the latest?");
+    } else if (e.target.value === "ideas") {
+      setPlaceholder("What idea do you want to hatch?");
+    } else {
+      setPlaceholder(
+        "Your egg hatched into a beautiful project? List it here!"
+      );
+    }
   };
   const handleChangeContent = (e) => {
     setContent(e.target.value);
