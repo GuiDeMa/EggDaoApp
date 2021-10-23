@@ -190,9 +190,9 @@ export function FetchProjects(filter, order, offset) {
     }
   }`);
 }
-export function FetchJobs(order, offset) {
+export function FetchJobs(ticker, order, offset) {
   return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {bContent: {startsWith: "/job"}}) {
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {and: {bContent: {startsWith: "/job"}, mapComment: {includesInsensitive: "${ticker}"}}}) {
       totalCount
       edges {
         node {

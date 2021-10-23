@@ -13,7 +13,7 @@ import {
   Typography,
   useTheme
 } from "@mui/material";
-import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -201,6 +201,16 @@ export default function AppBar(props) {
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Projects")}>
                       Projects
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/jobs">
+                  <ListItemIcon>
+                    <WorkOutlineIcon color={isSelected("Jobs")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Jobs")}>
+                      Jobs
                     </Typography>
                   </ListItemText>
                 </ListItem>

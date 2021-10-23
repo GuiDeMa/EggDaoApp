@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import EmojiObjectsOutlinedIcon from "@mui/icons-material/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@mui/icons-material/StarsOutlined";
@@ -22,7 +22,6 @@ import Logo from "../resources/Logo";
 
 import Notifications from "./Notifications";
 import Messages from "./Messages";
-import { BorderRight } from "@mui/icons-material";
 
 export default function LeftPane(props) {
   const selected = props.currentTab;
@@ -199,6 +198,16 @@ export default function LeftPane(props) {
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Projects")}>
                       Projects
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/jobs">
+                  <ListItemIcon>
+                    <WorkOutlineIcon color={isSelected("Jobs")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Jobs")}>
+                      Jobs
                     </Typography>
                   </ListItemText>
                 </ListItem>
