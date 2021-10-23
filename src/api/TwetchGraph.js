@@ -154,7 +154,7 @@ export function FetchPosts(filter, order, offset) {
 export function FetchHome(ticker, order, offset) {
   //console.log(filter);
   return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {or: [{bContent:{includesInsensitive:"${ticker}"}}{mapComment:{includesInsensitive:"${ticker}"}}]}) {
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {or: [{mapComment:{includesInsensitive:"${ticker}"}}]}) {
       totalCount
       edges {
         node {
