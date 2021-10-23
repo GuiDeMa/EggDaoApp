@@ -3,9 +3,14 @@ import {
   Avatar,
   Button,
   Drawer,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   Grid,
   Snackbar,
   InputAdornment,
+  Radio,
+  RadioGroup,
   TextField,
   Typography,
   useTheme,
@@ -32,6 +37,7 @@ export default function Composer(props) {
     window !== undefined ? () => window().document.body : undefined;
   const ticker = "$EGG";
   const replyTx = location.pathname.split("/")[2];
+  const [type, setType] = useState("default");
   const [placeholder, setPlaceholder] = useState("What's the latest?");
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
@@ -69,6 +75,9 @@ export default function Composer(props) {
     }
   });
 
+  const handleChangeType = (e) => {
+    setType(e.target.value);
+  };
   const handleChangeContent = (e) => {
     setContent(e.target.value);
   };
@@ -362,7 +371,7 @@ export default function Composer(props) {
     const payload = {
       bContent: text,
       mapReply: replyTx,
-      mapComment: ticker + hash
+      mapComment: type !== "default" ? `${ticker} #${type}` : ticker
     };
 
     twetch
@@ -448,7 +457,36 @@ export default function Composer(props) {
           <Grid item>
             <Grid container style={{ width: "100%" }}>
               <div style={{ flexGrow: 1 }}></div>
-              <div>
+              <Grid item xs={9}>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Post Type</FormLabel>
+                  <RadioGroup
+                    row
+                    aria-label="type"
+                    name="row-radio-buttons-group"
+                    value={type}
+                    onChange={handleChangeType}
+                  >
+                    <FormControlLabel
+                      value="default"
+                      control={<Radio />}
+                      label=""
+                    />
+                    <FormControlLabel
+                      value="ideas"
+                      control={<Radio />}
+                      label="🥚"
+                    />
+                    <FormControlLabel
+                      value="projects"
+                      control={<Radio />}
+                      label="🐣"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={3}>
                 <Button
                   style={{
                     height: "32px",
@@ -465,7 +503,7 @@ export default function Composer(props) {
                 >
                   Post
                 </Button>
-              </div>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

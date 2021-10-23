@@ -8,6 +8,11 @@ import Auth from "./page/Auth";
 import Notifications from "./page/Notifications";
 import Compose from "./page/Compose";
 import Dashboard from "./page/Dashboard";
+
+//temp
+import Projects from "./page/Projects";
+import Ideas from "./page/Ideas";
+
 import Profile from "./page/Profile";
 import Search from "./page/Search";
 import Detail from "./page/Detail";
@@ -49,6 +54,8 @@ export default function App() {
             path="/notifications"
             component={Notifications}
           />
+          <ProtectedRoute exact path="/ideas" component={Ideas} />
+          <ProtectedRoute exact path="/projects" component={Projects} />
           <ProtectedRoute exact path="/" component={Dashboard} />
           <ProtectedRoute exact path="/features" component={Features} />
           <ProtectedRoute exact path="/settings" component={Settings} />
