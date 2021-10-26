@@ -18,7 +18,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { FetchPosts } from "../api/TwetchGraph";
+import { FetchSearchResults } from "../api/TwetchGraph";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
@@ -71,7 +71,7 @@ export default function Search(props) {
   }, [orderBy, filter]);
 
   const fetchMore = () => {
-    FetchPosts(filter, orderBy, offset).then((res) => {
+    FetchSearchResults(filter, orderBy, offset).then((res) => {
       //console.log(res);
       setTotalCount(res.allPosts.totalCount);
       //console.log("total:", totalCount);

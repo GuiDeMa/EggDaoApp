@@ -138,6 +138,20 @@ export function FetchNotifications(offset) {
   }`);
 }
 
+export function FetchSearchResults(filter, order, offset) {
+  //console.log(filter);
+  return twquery(`{
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {bContent: {includes: "${filter}"}}) {
+      totalCount
+      edges {
+        node {
+          ...${PostFields}
+        }
+      }
+    }
+  }`);
+}
+
 export function FetchPosts(filter, order, offset) {
   //console.log(filter);
   return twquery(`{
