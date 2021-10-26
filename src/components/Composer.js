@@ -56,17 +56,23 @@ export default function Composer(props) {
         ) {
           edges {
             node {
+              userId
               userByUserId {
                 name
               }
             }
           }
         }
-      }`).then((res) =>
-        setPlaceholder(
-          `In reply to ${res.allPosts.edges[0].node.userByUserId.name}`
-        )
-      );
+      }`).then((res) => {
+        console.log(res);
+        if (res.allPosts.edges[0].node.userId === localStorage.id) {
+          setPlaceholder("In reply to you");
+        } else {
+          setPlaceholder(
+            `In reply to Eggie #${res.allPosts.edges[0].node.userId}`
+          );
+        }
+      });
     }
   });
 

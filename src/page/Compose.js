@@ -104,7 +104,9 @@ export default function Compose(props) {
                     }}
                   >
                     {postData[0]
-                      ? `In reply to ${postData[0].node.userByUserId.name}`
+                      ? postData[0].node.userId === localStorage.id
+                        ? "In reply to you"
+                        : `In reply to Eggie #${postData[0].node.userId}`
                       : "New Post"}
                   </Typography>
                 </Button>
