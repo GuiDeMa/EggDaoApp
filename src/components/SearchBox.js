@@ -50,7 +50,7 @@ export default function SearchBox() {
                 <SearchIcon color="primary" />
               </InputAdornment>
             }
-            endAdornment={
+            /* endAdornment={
               <InputAdornment position="end">
                 <a
                   href="https://twetch.app/search.advanced"
@@ -63,7 +63,7 @@ export default function SearchBox() {
                   </Typography>
                 </a>
               </InputAdornment>
-            }
+            } */
             aria-describedby="standard-search-helper-text"
             inputProps={{
               "aria-label": "search Term"

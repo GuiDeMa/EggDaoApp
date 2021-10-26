@@ -187,7 +187,7 @@ export default function Search(props) {
                 </Typography>
               </Button>
               <div>
-                <Button
+                {/* <Button
                   color="primary"
                   href="https://twetch.app/search/advanced"
                   target="_blank"
@@ -195,7 +195,7 @@ export default function Search(props) {
                   style={{ textDecoration: "none", textTransform: "none" }}
                 >
                   Advanced
-                </Button>
+                </Button> */}
               </div>
             </div>
             <div style={{ paddingBottom: "12px" }}>
