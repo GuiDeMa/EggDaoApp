@@ -33,7 +33,7 @@ export default function NotifDetail(props) {
 
   const getDetail = (e) => {
     e.stopPropagation();
-    //history.push(`/t/${postTx}`);
+    history.push(props.url);
   };
   return (
     <Grid item xs={12} onClick={getDetail}>

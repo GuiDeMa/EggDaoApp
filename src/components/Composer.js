@@ -64,7 +64,6 @@ export default function Composer(props) {
           }
         }
       }`).then((res) => {
-        console.log(res);
         if (res.allPosts.edges[0].node.userId === localStorage.id) {
           setPlaceholder("In reply to you");
         } else {
