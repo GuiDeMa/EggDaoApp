@@ -184,6 +184,16 @@ export default function AppBar(props) {
                     </Typography>
                   </ListItemText>
                 </ListItem>
+                <ListItem button component={Link} to="/problems">
+                  <ListItemIcon>
+                    <HelpOutlineOutlinedIcon color={isSelected("Problems")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Problems")}>
+                      Problems
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
                 <ListItem button component={Link} to="/ideas">
                   <ListItemIcon>
                     <EmojiObjectsOutlinedIcon color={isSelected("Ideas")} />

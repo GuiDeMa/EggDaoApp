@@ -10,6 +10,7 @@ import Compose from "./page/Compose";
 import Dashboard from "./page/Dashboard";
 import Jobs from "./page/Jobs";
 //temp
+import Problems from "./page/Problems";
 import Projects from "./page/Projects";
 import Ideas from "./page/Ideas";
 
@@ -56,6 +57,7 @@ export default function App() {
           />
 
           <ProtectedRoute exact path="/" component={Dashboard} />
+          <ProtectedRoute exact path="/problems" component={Problems} />
           <ProtectedRoute exact path="/ideas" component={Ideas} />
           <ProtectedRoute exact path="/projects" component={Projects} />
           <ProtectedRoute exact path="/jobs" component={Jobs} />

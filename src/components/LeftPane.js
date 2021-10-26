@@ -10,6 +10,7 @@ import {
   Typography,
   useTheme
 } from "@mui/material";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
@@ -178,6 +179,16 @@ export default function LeftPane(props) {
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Home")}>
                       Home
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/problems">
+                  <ListItemIcon>
+                    <HelpOutlineOutlinedIcon color={isSelected("Problems")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Problems")}>
+                      Problems
                     </Typography>
                   </ListItemText>
                 </ListItem>

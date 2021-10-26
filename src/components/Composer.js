@@ -76,10 +76,12 @@ export default function Composer(props) {
       setPlaceholder("What's the latest?");
     } else if (e.target.value === "ideas") {
       setPlaceholder("What idea do you want to hatch?");
-    } else {
+    } else if (e.target.value === "projects") {
       setPlaceholder(
         "Your egg hatched into a beautiful project? List it here!"
       );
+    } else {
+      setPlaceholder("What's on your mind?");
     }
   };
   const handleChangeContent = (e) => {
@@ -475,6 +477,11 @@ export default function Composer(props) {
                       value="default"
                       control={<Radio />}
                       label=""
+                    />
+                    <FormControlLabel
+                      value="problems"
+                      control={<Radio />}
+                      label="🤔"
                     />
                     <FormControlLabel
                       value="ideas"
