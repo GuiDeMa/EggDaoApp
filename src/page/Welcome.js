@@ -63,7 +63,7 @@ export default function Welcome() {
                 }}
               >
                 <h1 style={{ color: "#000000" }}>Upgrade your community</h1>
-                <p>
+                <p style={{ color: "#000000" }}>
                   Community tools to grow your wealth - Twetch and earn
                   compounding interest
                 </p>
