@@ -49,6 +49,22 @@ export default function Composer(props) {
   useEffect(() => {
     const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
     twetch.wallet.restore(pKey);
+    if (props.type) {
+      setType(props.type);
+      if (props.type === "default") {
+        setPlaceholder("What's the latest?");
+      } else if (props.type === "ideas") {
+        setPlaceholder("What idea do you want to hatch?");
+      } else if (props.type === "projects") {
+        setPlaceholder(
+          "Your egg hatched into a beautiful project? List it here!"
+        );
+      } else if (props.type === "problems") {
+        setPlaceholder("What's on your mind?");
+      } else {
+        setPlaceholder("What's the latest?");
+      }
+    }
     if (replyTx) {
       twquery(`{
         allPosts(
@@ -85,8 +101,10 @@ export default function Composer(props) {
       setPlaceholder(
         "Your egg hatched into a beautiful project? List it here!"
       );
-    } else {
+    } else if (e.target.value === "problems") {
       setPlaceholder("What's on your mind?");
+    } else {
+      setPlaceholder("What's the latest?");
     }
   };
   const handleChangeContent = (e) => {

@@ -182,7 +182,7 @@ export default function Dashboard(props) {
             >
               {!smUp ? null : (
                 <div>
-                  <Composer />
+                  <Composer type="default" />
                   <div
                     style={{
                       width: "100%",

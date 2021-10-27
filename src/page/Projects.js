@@ -189,7 +189,7 @@ export default function Projects(props) {
             >
               {!smUp ? null : (
                 <div>
-                  <Composer />
+                  <Composer type="projects" />
                   <div
                     style={{
                       width: "100%",
