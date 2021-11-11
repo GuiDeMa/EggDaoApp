@@ -403,14 +403,18 @@ export default function Composer(props) {
       mapComment: type !== "default" ? `${ticker} #${type}` : ticker
     };
 
-    twetch
-      .publish("twetch/post@0.0.1", payload)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (localStorage.wallet === "moneybutton") {
+      //TODO
+    } else {
+      twetch
+        .publish("twetch/post@0.0.1", payload)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const handleCloseSuccess = (event, reason) => {
