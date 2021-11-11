@@ -1,8 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Paper, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Backdrop, Button, Paper, Typography, useTheme } from "@mui/material";
 import Logo from "../resources/Logo";
-
+import MBLogo from "../resources/moneybutton.png";
+import RelayLogo from "../resources/relay.png";
+import HandCashLogo from "../resources/handcash.png";
+import auth from "../utils/auth";
 import { twquery } from "../api/TwetchGraph";
 
 export const imbCli = window.location.href.includes("csb")
@@ -10,7 +13,8 @@ export const imbCli = window.location.href.includes("csb")
   : "ce4eb6ea41a4f43044dd7e71c08e50b2";
 
 export default function Auth() {
-  //const history = useHistory();
+  const [open, setOpen] = useState(false);
+  const history = useHistory();
   const host = window.location.host;
   const theme = useTheme();
   const TwetchLogin = (e) => {
@@ -21,57 +25,17 @@ export default function Auth() {
     window.location.href = `https://twetch.app/auth/authorize?appName=${appName}&redirectUrl=${redirectUrl}`;
   };
 
+  const handleDrawerToggle = (e) => {
+    e.stopPropagation();
+    setOpen(!open);
+  };
+
   /* const HandCashLogin = (e) => {
     e.preventDefault();
     window.location.href = redirectionLoginUrl;
   }; */
 
-  /* const MBLogin = async () => {
-    // is also in TwetchAction component
-
-    let getPermissionForCurrentUser = () => {
-      return localStorage.token;
-    };
-    const imb = new window.moneyButton.IMB({
-      clientIdentifier: imbCli,
-      permission: getPermissionForCurrentUser(),
-      onNewPermissionGranted: (token) => localStorage.setItem("token", token)
-    });
-    if (!localStorage.getItem("tokenTwetchAuth")) {
-      fetch("https://auth.twetch.app/api/v1/challenge")
-        .then(function (res) {
-          return res.json();
-        })
-        .then(async (resp) => {
-          var cryptoOperations = [
-            {
-              name: "mySignature",
-              method: "sign",
-              data: resp.message,
-              dataEncoding: "utf8",
-              key: "identity",
-              algorithm: "bitcoin-signed-message"
-            },
-            { name: "myPublicKey", method: "public-key", key: "identity" },
-            { name: "myAddress", method: "address", key: "identity" }
-          ];
-          imb.swipe({
-            cryptoOperations: cryptoOperations,
-            onCryptoOperations: async (ops) => {
-              saveWallet(ops[1].paymail, "moneybutton");
-              if (localStorage.getItem("paymail")) {
-                twLogin(ops[2].value, resp.message, ops[0].value, () => {
-                  history.push("/");
-                });
-              }
-            }
-          });
-        });
-    } else {
-      history.push("/");
-    }
-  };
-  const RelayXLogin = async () => {
+  /*const RelayXLogin = async () => {
     let token = await window.relayone.authBeta({ withGrant: true }),
       res;
     localStorage.setItem("token", token);
@@ -103,6 +67,164 @@ export default function Auth() {
         }
       });
   }; */
+
+  const selectWallet = (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        maxHeight: "100vh",
+        flexDirection: "column"
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexGrow: 1,
+          userSelect: "none"
+        }}
+      ></div>
+      <div
+        style={{
+          transform: "none",
+          transition: "transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms",
+          width: "100%",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          maxWidth: "600px",
+          maxHeight: "50vh",
+          flexSirection: "column"
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            padding: "16px",
+            background: "#F6F5FB",
+            borderRadius: "12px 12px 0 0"
+          }}
+        >
+          <Typography
+            variant="body1"
+            style={{
+              color: "#010101",
+              fontSize: "18px",
+              fontWeight: "bold",
+              lineHeight: "24px"
+            }}
+          >
+            Select Wallet
+          </Typography>
+          <div style={{ flexGrow: 1 }} />
+          <Typography
+            variant="body1"
+            style={{
+              color: "#838388",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: 500,
+              lineHeight: "24px"
+            }}
+          >
+            Cancel
+          </Typography>
+        </div>
+        <div
+          style={{
+            flexGrow: 1,
+            background: "#FFFFFF",
+            overflowY: "auto"
+          }}
+        >
+          {/* <div
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              padding: "10px",
+              borderTop: "1px solid #F0F0F6"
+            }}
+            onClick={RelayXLogin}
+          >
+            <img
+              src={RelayLogo}
+              alt="RelayX"
+              style={{ height: "32px", width: "32px" }}
+            />
+            <Typography
+              variant="body1"
+              style={{
+                color: "#010101",
+                fontSize: "16px",
+                lineHeight: "34px",
+                marginLeft: "10px"
+              }}
+            >
+              RelayX
+            </Typography>
+          </div> */}
+          <div
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              padding: "10px",
+              borderTop: "1px solid #F0F0F6"
+            }}
+            onClick={() => {
+              auth.MBLogin(() => {
+                history.push("/");
+              });
+            }}
+          >
+            <img
+              src={MBLogo}
+              alt="MoneyButton"
+              style={{ height: "32px", width: "32px" }}
+            />
+            <Typography
+              variant="body1"
+              style={{
+                color: "#010101",
+                fontSize: "16px",
+                lineHeight: "34px",
+                marginLeft: "10px"
+              }}
+            >
+              MoneyButton
+            </Typography>
+          </div>
+          {/* <div
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              padding: "10px",
+              borderTop: "1px solid #F0F0F6"
+            }}
+            onClick={HandCashLogin}
+          >
+            <img
+              src={HandCashLogo}
+              alt="HandCash"
+              style={{ height: "32px", width: "32px" }}
+            />
+            <Typography
+              variant="body1"
+              style={{
+                color: "#010101",
+                fontSize: "16px",
+                lineHeight: "34px",
+                marginLeft: "10px"
+              }}
+            >
+              HandCash
+            </Typography>
+          </div> */}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div
       style={{
@@ -189,10 +311,9 @@ export default function Auth() {
             }}
             variant="outlined"
             color="primary"
-            href="https://twet.ch/inv/eggdao"
-            target="_blank"
+            onClick={handleDrawerToggle}
           >
-            But ser, I don't have a Twetch account
+            Log in with wallet provider
           </Button>
         </div>
         <div
@@ -211,23 +332,45 @@ export default function Auth() {
               maxWidth: "300px"
             }}
           >
-            {/* <Link className="Links" to="/">
-              <p
-                style={{
-                  color: theme.palette.primary.main,
-                  margin: "0 auto",
-                  fontSize: "18px",
-                  textAlign: "center",
-                  lineHeight: "20px"
-                }}
+            <Typography
+              variant="body1"
+              style={{
+                margin: "0 auto",
+                fontSize: "18px",
+                textAlign: "center",
+                lineHeight: "20px"
+              }}
+            >
+              Don't have a Twetch account? Grab an invite{" "}
+              <a
+                className="Links"
+                href="/"
+                target="_blank"
+                style={{ color: theme.palette.primary.main }}
               >
-                Navigate anonymously
-              </p>
-            </Link> */}
+                here
+              </a>
+            </Typography>
           </div>
         </div>
       </Paper>
       <div style={{ flexGrow: 1 }} />
+      <Backdrop
+        style={{
+          opacity: 1,
+          transition: "opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+          width: "100%",
+          height: "100%",
+          zIndex: 1400,
+          position: "absolute",
+          background: "rgba(26, 26, 28, .5)",
+          userSelect: "none"
+        }}
+        open={open}
+        onClick={() => setOpen(false)}
+      >
+        {selectWallet}
+      </Backdrop>
     </div>
   );
 }
@@ -255,6 +398,7 @@ export const twLogin = (address, message, signature, callback) => {
       localStorage.setItem("id", me.id);
       localStorage.setItem("icon", me.icon);
       localStorage.setItem("name", me.name);
+      localStorage.setItem("isOneClick", "false");
       callback();
     });
 };
