@@ -53,7 +53,7 @@ export default function LikeIcon(props) {
   const handleClick = (e) => {
     e.stopPropagation();
 
-    if (!localStorage.tokenTwetchAuth) {
+    if (localStorage.tokenTwetchAuth === "anon") {
       alert("Please Log in"); //Snackbar
       return;
     }

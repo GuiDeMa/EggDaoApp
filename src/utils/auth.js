@@ -6,6 +6,12 @@ class Auth {
     this.authenticated = localStorage.tokenTwetchAuth || false;
   }
 
+  anon(cb) {
+    localStorage.setItem("tokenTwetchAuth", "anon");
+    this.authenticated = true;
+    cb();
+  }
+
   login(cb) {
     try {
       twetch.authenticate();

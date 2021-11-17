@@ -107,7 +107,7 @@ export default function AppBar(props) {
               paddingLeft: "24px"
             }}
           >
-            {localStorage.tokenTwetchAuth ? (
+            {localStorage.tokenTwetchAuth !== "anon" ? (
               <div style={{ cursor: "pointer" }}>
                 <div style={{ display: "flex", marginBottom: "15px" }}>
                   <Avatar
@@ -270,7 +270,7 @@ export default function AppBar(props) {
             style={{ height: "36px", width: "36px" }}
             onClick={handleDrawerToggle}
           >
-            {localStorage.getItem("tokenTwetchAuth") ? (
+            {localStorage.tokenTwetchAuth !== "anon" ? (
               <Avatar
                 src={localStorage.getItem("icon")}
                 alt={`${localStorage.getItem("name")}`}
@@ -302,7 +302,7 @@ export default function AppBar(props) {
           </Link>
         </div>
         <div style={{ float: "right" }}>
-          {!localStorage.tokenTwetchAuth ? (
+          {!localStorage.tokenTwetchAuth !== "anon" ? (
             <Link style={{ textDecoration: "none" }} to="/auth">
               <Button style={{ textTransform: "none" }} color="primary">
                 Log In

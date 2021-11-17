@@ -76,7 +76,7 @@ export default function LeftPane(props) {
               paddingLeft: "24px"
             }}
           >
-            {localStorage.tokenTwetchAuth ? (
+            {localStorage.tokenTwetchAuth !== "anon" ? (
               <div style={{ cursor: "pointer" }}>
                 <div style={{ display: "flex", marginBottom: "15px" }}>
                   <Avatar
@@ -143,35 +143,39 @@ export default function LeftPane(props) {
           >
             <div>
               <List style={{ marginLeft: "-16px" }}>
-                <ListItem button component={Link} to="/notifications">
-                  <ListItemIcon>
-                    <Notifications color={isSelected("Notifications")} />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Typography
-                      variant="body1"
-                      color={isSelected("Notifications")}
-                    >
-                      Notifications
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-                <ListItem
-                  button
-                  component="a"
-                  href="https://twetch.app/chat/home"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <ListItemIcon>
-                    <Messages color={isSelected("Chat")} />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Typography variant="body1" color={isSelected("Chat")}>
-                      Chat
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
+                {localStorage.tokenTwetchAuth !== "anon" && (
+                  <ListItem button component={Link} to="/notifications">
+                    <ListItemIcon>
+                      <Notifications color={isSelected("Notifications")} />
+                    </ListItemIcon>
+                    <ListItemText>
+                      <Typography
+                        variant="body1"
+                        color={isSelected("Notifications")}
+                      >
+                        Notifications
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                )}
+                {localStorage.tokenTwetchAuth !== "anon" && (
+                  <ListItem
+                    button
+                    component="a"
+                    href="https://twetch.app/chat/home"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ListItemIcon>
+                      <Messages color={isSelected("Chat")} />
+                    </ListItemIcon>
+                    <ListItemText>
+                      <Typography variant="body1" color={isSelected("Chat")}>
+                        Chat
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                )}
                 <ListItem button component={Link} to="/">
                   <ListItemIcon>
                     <HomeOutlinedIcon color={isSelected("Home")} />

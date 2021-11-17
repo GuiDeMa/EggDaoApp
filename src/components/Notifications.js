@@ -26,7 +26,7 @@ export default function Notifications(props) {
   const [unreadNotifCount, setUnreadNotifCount] = useState();
 
   useEffect(() => {
-    localStorage.tokenTwetchAuth &&
+    localStorage.tokenTwetchAuth !== "anon" &&
       twquery(notifQ).then((res) => {
         let count = res.me.notificationsCount;
         //console.log(count);

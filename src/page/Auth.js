@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Button, Paper, Typography, useTheme } from "@mui/material";
 import Logo from "../resources/Logo";
 
 import { twquery } from "../api/TwetchGraph";
+import auth from "../utils/auth";
 
 export const imbCli = window.location.href.includes("csb")
   ? "d1782f2caa2a71f85576cc0423818882"
@@ -13,6 +14,7 @@ export default function Auth() {
   //const history = useHistory();
   const host = window.location.host;
   const theme = useTheme();
+  const history = useHistory();
   const TwetchLogin = (e) => {
     // config
     let redirectUrl = `https://${host}/auth/callback/twetch`;
@@ -211,7 +213,15 @@ export default function Auth() {
               maxWidth: "300px"
             }}
           >
-            {/* <Link className="Links" to="/">
+            <div
+              className="Links"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                auth.anon(() => {
+                  history.push("/");
+                });
+              }}
+            >
               <p
                 style={{
                   color: theme.palette.primary.main,
@@ -223,7 +233,7 @@ export default function Auth() {
               >
                 Navigate anonymously
               </p>
-            </Link> */}
+            </div>
           </div>
         </div>
       </Paper>
