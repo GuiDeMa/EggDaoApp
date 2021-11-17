@@ -89,7 +89,7 @@ export default function Composer(props) {
         }
       });
     }
-  });
+  }, [props.type]);
 
   const handleChangeType = (e) => {
     setType(e.target.value);
