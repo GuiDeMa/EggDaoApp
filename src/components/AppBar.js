@@ -302,7 +302,7 @@ export default function AppBar(props) {
           </Link>
         </div>
         <div style={{ float: "right" }}>
-          {!localStorage.tokenTwetchAuth !== "anon" ? (
+          {localStorage.tokenTwetchAuth === "anon" ? (
             <Link style={{ textDecoration: "none" }} to="/auth">
               <Button style={{ textTransform: "none" }} color="primary">
                 Log In
