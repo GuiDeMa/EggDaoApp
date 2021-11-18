@@ -49,13 +49,17 @@ export default function PostDescription(props) {
   const generateDesc = async (desc) => {
     let jsx = [];
     elements.forEach((e) => {
-      e.forEach((o) => {
-        if (o.type === "text") {
-          jsx.push(<span>{o.value}</span>);
-        } else if (o.type === "mention") {
-          jsx.push(<UserName id={o.userId} />);
-        }
-      });
+      jsx.push(
+        <Typography variant="body1">
+          {e.map((o) => {
+            if (o.type === "text") {
+              return <span>{o.value}</span>;
+            } else if (o.type === "mention") {
+              return <UserName id={o.userId} />;
+            }
+          })}
+        </Typography>
+      );
     });
     return jsx;
   };
